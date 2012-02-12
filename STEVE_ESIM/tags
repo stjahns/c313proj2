@@ -1,0 +1,149 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CC	Makefile	/^CC = g++$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -Wall -c -g$/;"	m
+Conclusions	report.tex	/^\\section*{Conclusions}$/;"	s
+Discussion	report.tex	/^\\section*{Discussion}$/;"	s
+Frame	simulator.h	/^struct Frame {$/;"	s
+Frame::bits_sent	simulator.h	/^    int bits_sent;$/;"	m	struct:Frame	access:public
+Frame::block_errors	simulator.h	/^    int block_errors;$/;"	m	struct:Frame	access:public
+Frame::block_index	simulator.h	/^    int block_index; \/\/ which block within the frame is currently being txed$/;"	m	struct:Frame	access:public
+Frame::lost	simulator.h	/^    bool lost;$/;"	m	struct:Frame	access:public
+Introduction	report.tex	/^\\section*{Introduction}$/;"	s
+LFLAGS	Makefile	/^LFLAGS = -Wall -lm$/;"	m
+Methods	report.tex	/^\\section*{Methods}$/;"	s
+OBJS	Makefile	/^OBJS = ass1.o simulator.o$/;"	m
+Results	report.tex	/^\\section*{Results}$/;"	s
+SIMULATOR_H	simulator.h	6;"	d
+SimParams	simulator.h	/^struct SimParams {$/;"	s
+SimParams::error_prob	simulator.h	/^    double error_prob;$/;"	m	struct:SimParams	access:public
+SimParams::feedback_time	simulator.h	/^    int feedback_time;$/;"	m	struct:SimParams	access:public
+SimParams::frame_size	simulator.h	/^    int frame_size;$/;"	m	struct:SimParams	access:public
+SimParams::num_blocks	simulator.h	/^    int num_blocks;$/;"	m	struct:SimParams	access:public
+SimParams::num_trials	simulator.h	/^    int num_trials;$/;"	m	struct:SimParams	access:public
+SimParams::seeds	simulator.h	/^    vector<int> seeds;$/;"	m	struct:SimParams	access:public
+SimParams::sim_length	simulator.h	/^    int sim_length;$/;"	m	struct:SimParams	access:public
+Simulator	simulator.cpp	/^Simulator::Simulator( SimParams &params )$/;"	f	class:Simulator	signature:( SimParams &params )
+Simulator	simulator.h	/^    Simulator( SimParams &params );$/;"	p	class:Simulator	access:public	signature:( SimParams &params )
+Simulator	simulator.h	/^class Simulator $/;"	c
+Simulator::Simulator	simulator.cpp	/^Simulator::Simulator( SimParams &params )$/;"	f	class:Simulator	signature:( SimParams &params )
+Simulator::Simulator	simulator.h	/^    Simulator( SimParams &params );$/;"	p	class:Simulator	access:public	signature:( SimParams &params )
+Simulator::block_size	simulator.h	/^    int block_size;$/;"	m	class:Simulator	access:private
+Simulator::calc_block_size	simulator.cpp	/^int Simulator::calc_block_size()$/;"	f	class:Simulator	signature:()
+Simulator::calc_block_size	simulator.h	/^    int calc_block_size();$/;"	p	class:Simulator	access:private	signature:()
+Simulator::error_prob	simulator.h	/^    double error_prob;$/;"	m	class:Simulator	access:private
+Simulator::feedback_time	simulator.h	/^    int feedback_time;$/;"	m	class:Simulator	access:private
+Simulator::frame_size	simulator.h	/^    int frame_size;$/;"	m	class:Simulator	access:private
+Simulator::get_t_value	simulator.cpp	/^double Simulator::get_t_value( int df )$/;"	f	class:Simulator	signature:( int df )
+Simulator::get_t_value	simulator.h	/^    double get_t_value( int df );$/;"	p	class:Simulator	access:private	signature:( int df )
+Simulator::new_frame	simulator.cpp	/^void Simulator::new_frame( Frame &frame )$/;"	f	class:Simulator	signature:( Frame &frame )
+Simulator::new_frame	simulator.h	/^    void new_frame( Frame &frame );$/;"	p	class:Simulator	access:private	signature:( Frame &frame )
+Simulator::num_blocks	simulator.h	/^    int num_blocks;$/;"	m	class:Simulator	access:private
+Simulator::num_trials	simulator.h	/^    int num_trials;$/;"	m	class:Simulator	access:private
+Simulator::print_ci	simulator.cpp	/^void Simulator::print_ci( double mean, double mse )$/;"	f	class:Simulator	signature:( double mean, double mse )
+Simulator::print_ci	simulator.h	/^    void print_ci( double mean, double mse );$/;"	p	class:Simulator	access:private	signature:( double mean, double mse )
+Simulator::print_frame_statistics	simulator.cpp	/^void Simulator::print_frame_statistics( const vector<int> &all_frames, $/;"	f	class:Simulator	signature:( const vector<int> &all_frames, const vector<int> &corr_frames )
+Simulator::print_frame_statistics	simulator.h	/^    void print_frame_statistics( const vector<int> &all_frames, $/;"	p	class:Simulator	access:private	signature:( const vector<int> &all_frames, const vector<int> &corr_frames )
+Simulator::print_throughput_statistics	simulator.cpp	/^void Simulator::print_throughput_statistics( const vector<int> &corr_frames,$/;"	f	class:Simulator	signature:( const vector<int> &corr_frames, int time )
+Simulator::print_throughput_statistics	simulator.h	/^    void print_throughput_statistics( const vector<int> &corr_frames, $/;"	p	class:Simulator	access:private	signature:( const vector<int> &corr_frames, int time )
+Simulator::run	simulator.cpp	/^void Simulator::run()$/;"	f	class:Simulator	signature:()
+Simulator::run	simulator.h	/^    void run();$/;"	p	class:Simulator	access:public	signature:()
+Simulator::run_trial	simulator.cpp	/^void Simulator::run_trial( int &time, int &frames, int &corr_frames, int seed )$/;"	f	class:Simulator	signature:( int &time, int &frames, int &corr_frames, int seed )
+Simulator::run_trial	simulator.h	/^    void run_trial( int &time, int &frames, int &corr_frames, int seed );$/;"	p	class:Simulator	access:private	signature:( int &time, int &frames, int &corr_frames, int seed )
+Simulator::seeds	simulator.h	/^    vector<int> seeds;$/;"	m	class:Simulator	access:private
+Simulator::sim_length	simulator.h	/^    int sim_length;$/;"	m	class:Simulator	access:private
+Simulator::transmit_bit	simulator.cpp	/^bool Simulator::transmit_bit( Frame &frame )$/;"	f	class:Simulator	signature:( Frame &frame )
+Simulator::transmit_bit	simulator.h	/^    bool transmit_bit( Frame &frame );$/;"	p	class:Simulator	access:private	signature:( Frame &frame )
+bits_sent	simulator.h	/^    int bits_sent;$/;"	m	struct:Frame	access:public
+bits_sent	trash/ass1.c	/^    int bits_sent;$/;"	m	struct:frame	file:	access:public
+block_errors	simulator.h	/^    int block_errors;$/;"	m	struct:Frame	access:public
+block_errors	trash/ass1.c	/^    int block_errors;$/;"	m	struct:frame	file:	access:public
+block_index	simulator.h	/^    int block_index; \/\/ which block within the frame is currently being txed$/;"	m	struct:Frame	access:public
+block_index	trash/ass1.c	/^    int block_index;$/;"	m	struct:frame	file:	access:public
+block_size	simulator.h	/^    int block_size;$/;"	m	class:Simulator	access:private
+block_size	trash/ass1.c	/^    int block_size;$/;"	m	struct:parameters	file:	access:public
+calc_block_size	simulator.cpp	/^int Simulator::calc_block_size()$/;"	f	class:Simulator	signature:()
+calc_block_size	simulator.h	/^    int calc_block_size();$/;"	p	class:Simulator	access:private	signature:()
+error_prob	simulator.h	/^    double error_prob;$/;"	m	class:Simulator	access:private
+error_prob	simulator.h	/^    double error_prob;$/;"	m	struct:SimParams	access:public
+error_prob	trash/ass1.c	/^    double error_prob;$/;"	m	struct:parameters	file:	access:public
+feedback_time	simulator.h	/^    int feedback_time;$/;"	m	class:Simulator	access:private
+feedback_time	simulator.h	/^    int feedback_time;$/;"	m	struct:SimParams	access:public
+feedback_time	trash/ass1.c	/^    int feedback_time;$/;"	m	struct:parameters	file:	access:public
+frame	trash/ass1.c	/^struct frame {$/;"	s	file:
+frame::bits_sent	trash/ass1.c	/^    int bits_sent;$/;"	m	struct:frame	file:	access:public
+frame::block_errors	trash/ass1.c	/^    int block_errors;$/;"	m	struct:frame	file:	access:public
+frame::block_index	trash/ass1.c	/^    int block_index;$/;"	m	struct:frame	file:	access:public
+frame::lost	trash/ass1.c	/^    int lost;$/;"	m	struct:frame	file:	access:public
+frame::num_blocks	trash/ass1.c	/^    int num_blocks;$/;"	m	struct:frame	file:	access:public
+frame_size	simulator.h	/^    int frame_size;$/;"	m	class:Simulator	access:private
+frame_size	simulator.h	/^    int frame_size;$/;"	m	struct:SimParams	access:public
+frame_size	trash/ass1.c	/^    int frame_size;$/;"	m	struct:parameters	file:	access:public
+get_block_size	trash/ass1.c	/^void get_block_size( struct parameters *params ) {$/;"	f	signature:( struct parameters *params )
+get_block_size	trash/ass1.c	/^void get_block_size( struct parameters *params );$/;"	p	file:	signature:( struct parameters *params )
+get_t_value	simulator.cpp	/^double Simulator::get_t_value( int df )$/;"	f	class:Simulator	signature:( int df )
+get_t_value	simulator.h	/^    double get_t_value( int df );$/;"	p	class:Simulator	access:private	signature:( int df )
+get_t_value	trash/ass1.c	/^double get_t_value( int df )$/;"	f	signature:( int df )
+get_t_value	trash/ass1.c	/^double get_t_value( int df );$/;"	p	file:	signature:( int df )
+lost	simulator.h	/^    bool lost;$/;"	m	struct:Frame	access:public
+lost	trash/ass1.c	/^    int lost;$/;"	m	struct:frame	file:	access:public
+main	ass1.cpp	/^int main( int argc, char **argv )$/;"	f	signature:( int argc, char **argv )
+main	trash/ass1.c	/^int main( int argc, char **argv )$/;"	f	signature:( int argc, char **argv )
+new_frame	simulator.cpp	/^void Simulator::new_frame( Frame &frame )$/;"	f	class:Simulator	signature:( Frame &frame )
+new_frame	simulator.h	/^    void new_frame( Frame &frame );$/;"	p	class:Simulator	access:private	signature:( Frame &frame )
+new_frame	trash/ass1.c	/^void new_frame( struct frame *newFrame ) {$/;"	f	signature:( struct frame *newFrame )
+new_frame	trash/ass1.c	/^void new_frame( struct frame *newFrame );$/;"	p	file:	signature:( struct frame *newFrame )
+num_blocks	simulator.h	/^    int num_blocks;$/;"	m	class:Simulator	access:private
+num_blocks	simulator.h	/^    int num_blocks;$/;"	m	struct:SimParams	access:public
+num_blocks	trash/ass1.c	/^    int num_blocks;$/;"	m	struct:frame	file:	access:public
+num_blocks	trash/ass1.c	/^    int num_blocks;$/;"	m	struct:parameters	file:	access:public
+num_trials	simulator.h	/^    int num_trials;$/;"	m	class:Simulator	access:private
+num_trials	simulator.h	/^    int num_trials;$/;"	m	struct:SimParams	access:public
+num_trials	trash/ass1.c	/^    int num_trials;$/;"	m	struct:parameters	file:	access:public
+parameters	trash/ass1.c	/^struct parameters {$/;"	s	file:
+parameters::block_size	trash/ass1.c	/^    int block_size;$/;"	m	struct:parameters	file:	access:public
+parameters::error_prob	trash/ass1.c	/^    double error_prob;$/;"	m	struct:parameters	file:	access:public
+parameters::feedback_time	trash/ass1.c	/^    int feedback_time;$/;"	m	struct:parameters	file:	access:public
+parameters::frame_size	trash/ass1.c	/^    int frame_size;$/;"	m	struct:parameters	file:	access:public
+parameters::num_blocks	trash/ass1.c	/^    int num_blocks;$/;"	m	struct:parameters	file:	access:public
+parameters::num_trials	trash/ass1.c	/^    int num_trials;$/;"	m	struct:parameters	file:	access:public
+parameters::seeds	trash/ass1.c	/^    int *seeds;$/;"	m	struct:parameters	file:	access:public
+parameters::sim_length	trash/ass1.c	/^    int sim_length;$/;"	m	struct:parameters	file:	access:public
+print_ci	simulator.cpp	/^void Simulator::print_ci( double mean, double mse )$/;"	f	class:Simulator	signature:( double mean, double mse )
+print_ci	simulator.h	/^    void print_ci( double mean, double mse );$/;"	p	class:Simulator	access:private	signature:( double mean, double mse )
+print_frame_statistics	simulator.cpp	/^void Simulator::print_frame_statistics( const vector<int> &all_frames, $/;"	f	class:Simulator	signature:( const vector<int> &all_frames, const vector<int> &corr_frames )
+print_frame_statistics	simulator.h	/^    void print_frame_statistics( const vector<int> &all_frames, $/;"	p	class:Simulator	access:private	signature:( const vector<int> &all_frames, const vector<int> &corr_frames )
+print_frames_statistics	trash/ass1.c	/^void print_frames_statistics( struct parameters *params, $/;"	f	signature:( struct parameters *params, int *num_frames, int *num_corr_frames )
+print_frames_statistics	trash/ass1.c	/^void print_frames_statistics( struct parameters *params, $/;"	p	file:	signature:( struct parameters *params, int *num_frames, int *num_corr_frames )
+print_params	ass1.cpp	/^void print_params( SimParams &params ) {$/;"	f	signature:( SimParams &params )
+print_params	ass1.cpp	/^void print_params( SimParams &params );$/;"	p	file:	signature:( SimParams &params )
+print_params	trash/ass1.c	/^void print_params( struct parameters *params ) {$/;"	f	signature:( struct parameters *params )
+print_params	trash/ass1.c	/^void print_params( struct parameters *params );$/;"	p	file:	signature:( struct parameters *params )
+print_throughput_statistics	simulator.cpp	/^void Simulator::print_throughput_statistics( const vector<int> &corr_frames,$/;"	f	class:Simulator	signature:( const vector<int> &corr_frames, int time )
+print_throughput_statistics	simulator.h	/^    void print_throughput_statistics( const vector<int> &corr_frames, $/;"	p	class:Simulator	access:private	signature:( const vector<int> &corr_frames, int time )
+print_throughput_statistics	trash/ass1.c	/^void print_throughput_statistics( struct parameters *params, $/;"	f	signature:( struct parameters *params, int *num_frames, int time )
+print_throughput_statistics	trash/ass1.c	/^void print_throughput_statistics( struct parameters *params, $/;"	p	file:	signature:( struct parameters *params, int *num_frames, int time )
+read_params	ass1.cpp	/^int read_params( SimParams &params, int argc, char **argv ) $/;"	f	signature:( SimParams &params, int argc, char **argv )
+read_params	ass1.cpp	/^int read_params( SimParams &params, int argc, char **argv );$/;"	p	file:	signature:( SimParams &params, int argc, char **argv )
+read_params	trash/ass1.c	/^int read_params( struct parameters *params, int argc, char **argv ) {$/;"	f	signature:( struct parameters *params, int argc, char **argv )
+read_params	trash/ass1.c	/^int read_params( struct parameters *params, int argc, char **argv );$/;"	p	file:	signature:( struct parameters *params, int argc, char **argv )
+run	simulator.cpp	/^void Simulator::run()$/;"	f	class:Simulator	signature:()
+run	simulator.h	/^    void run();$/;"	p	class:Simulator	access:public	signature:()
+runSimulation	trash/ass1.c	/^void runSimulation( int *time, $/;"	f	signature:( int *time, int *frames, int *corr_frames, struct parameters *params, int seed )
+runSimulation	trash/ass1.c	/^void runSimulation( int *time, $/;"	p	file:	signature:( int *time, int *frames, int *corr_frames, struct parameters *params, int seed )
+run_trial	simulator.cpp	/^void Simulator::run_trial( int &time, int &frames, int &corr_frames, int seed )$/;"	f	class:Simulator	signature:( int &time, int &frames, int &corr_frames, int seed )
+run_trial	simulator.h	/^    void run_trial( int &time, int &frames, int &corr_frames, int seed );$/;"	p	class:Simulator	access:private	signature:( int &time, int &frames, int &corr_frames, int seed )
+seeds	simulator.h	/^    vector<int> seeds;$/;"	m	class:Simulator	access:private
+seeds	simulator.h	/^    vector<int> seeds;$/;"	m	struct:SimParams	access:public
+seeds	trash/ass1.c	/^    int *seeds;$/;"	m	struct:parameters	file:	access:public
+sim_length	simulator.h	/^    int sim_length;$/;"	m	class:Simulator	access:private
+sim_length	simulator.h	/^    int sim_length;$/;"	m	struct:SimParams	access:public
+sim_length	trash/ass1.c	/^    int sim_length;$/;"	m	struct:parameters	file:	access:public
+transmit_bit	simulator.cpp	/^bool Simulator::transmit_bit( Frame &frame )$/;"	f	class:Simulator	signature:( Frame &frame )
+transmit_bit	simulator.h	/^    bool transmit_bit( Frame &frame );$/;"	p	class:Simulator	access:private	signature:( Frame &frame )
+tx_bit	trash/ass1.c	/^int tx_bit( struct frame *currentFrame, struct parameters *params ) {$/;"	f	signature:( struct frame *currentFrame, struct parameters *params )
+tx_bit	trash/ass1.c	/^int tx_bit( struct frame *currentFrame, struct parameters *params );$/;"	p	file:	signature:( struct frame *currentFrame, struct parameters *params )

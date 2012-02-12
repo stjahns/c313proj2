@@ -1,0 +1,28 @@
+OBJS = ass1.o
+CC = gcc
+CFLAGS = -Wall -c -g
+LFLAGS = -Wall -lm
+
+default:
+	make report.pdf
+	make ass1
+	make ctags
+
+ass1: $(OBJS)
+	$(CC) $(LFLAGS) $(OBJS) -o $@
+
+ass1.o: ass1.c
+	$(CC) $(CFLAGS) $<
+
+ctags:
+	ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+
+run:
+	./ass1 100 1 8000 0.00005 1000000 5 1 2 3 4 5
+
+report.pdf: report.tex
+	pdflatex report.tex
+	rm report.log report.aux
+
+clean:
+	rm -rf *.o ass1 report.pdf output/*
