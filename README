@@ -114,6 +114,8 @@ DESIGN:
                         - ALOHA will tx immediately IF first tx OR last tx attempt 
                         successful, else will tx according to whatever backoff algorithm
                         its particular instance uses
+            Check how many stations tried to transmit -> If only one, remove
+            the txed frame from its tx queue (no collision!)
 
         At trial end, determine per station ratio of undelivered to total
         generated frames -> store in some vector or structure
