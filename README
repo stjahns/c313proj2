@@ -1,1 +1,83 @@
-hello world!
+CMPUT 313 Assignment 2
+Stephen Jahns and Marek Kundera
+
+Goal - Compare different backoff strategies for Slotted ALOHA MAC layer protocol
+     - ALSO, compare ALOHA strategies with TIME DIVISION MULTIPLEXING
+     - Comparisons based on THROUGHPUT and AVERAGE DELAY
+        - AVERAGE DELAY is full delay between frame generation and completed transmission?
+                - measured in slot times required for successful tx of a frame
+        - THROUGHPUT is (# frames tx'd X frame size in bits) / time in slots ???
+
+
+Problem - BUS with N stations
+        - Assume frames of fixed, equal size
+        - Transmision time for one frame exactly equal to a single slot time
+        - Beginning of slot synced to all stations simulaneously (no prop. delay)
+        - COLLISION when 2 or more stations transmit frame in same slot (on same bus)
+            - collision renders the transmissinos corrupted/unrecoverable
+            - collision INSTANTLY DETECTED (at beginning of slot...) by all stations
+        - Each station generates new frames independantly
+            - Generation controlled by global parameter 'p' - probability that station
+             will generate a new frame in a slot - shared by all stations
+            - Generated frames added to a queue of untxed frames
+            - Head of queue considered for transmission at each time slot
+
+Protocols to evaulate:
+    PROTOCOL T - Time Division Multiplexing
+               - Stations numbered 1 to N.
+               - Tranmission in cycles of N slots
+               - Slots numbered starting at 1
+               - Station 'i' allowed to transmit in slot mN+i, m = 0, 1, 2, ... 
+                 where m is cycle number
+               - Time slot wasted if station has nothing to tx
+
+    PROTOCOL P - Slotted ALOHA with probablistic backoff
+               - Station with frame to tx will tx ASAP (may be in same slot as generation)
+               - If collision on first attempt
+                    -TX in next slot with prob 1/N
+                    - If collison, tx in next slot with prob 1/N ... and so on till success
+
+    PROTOCOL I - Slotted ALOHA with interval based backoff
+               - Station with frame to tx will tx ASAP, (may be in same slot as gen)
+               - If collision on first attempt:
+                    -Next attempt performed in slot uniformly chosen between 1 and N after 
+                    current slot.
+                    -Attempt until success
+
+    PROTOCOL B - Slotted ALOHA with truncated binary exponential backoff
+               - Station with frame to tx will tx ASAP, (may be in same slot as gen)
+               - If collision on first attempt:
+                    - next attempt performed in 1st, 2nd, 3rd, or 4th slot, randomly
+                    - If still collide, backoff interval expands geometrically (doubling)
+                        - 1st - 4 slots, 2nd - 8, 3rd - 16
+                        - UNITL backoff interval is 1024 possible slots - CAP, interval
+                        used until tx is successful
+                - No memory of backup interval - next frame transmission will always occur 
+                in next frame after successful transmission
+
+
+Simulation
+    - Program parameters:
+        psim Protocol N p R T seed1 seed2 ... seedT
+        where 
+            - 'Protocol' is the name selected from {'T', 'P', 'I', 'B'}
+            - 'N' is the number of stations sharing the bus
+            - 'p' is the grame generation probability for each station
+                - note: consider p <= 0.04
+            - 'R' is the total number of slots that need to be simulated
+                - note: R=50000 should be good
+            - 'T' is number of trials, followed by the RNG seeds for each of the T trials
+
+    - Output:
+            - Line 1: repeat input parameters (without seeds)
+            - Line 2: Average throughput of system followed by lower, upper bounds of 95% CI
+                      calculated over all T trials.
+            - Line 3: Overall average per-frame delay in slot times follwed by 95% CI 
+                        note: lowest possible delay is 1 slot
+            - N * 4 subsequent lines: performance with respect to each station
+                      Line 1: node ID
+                      Line 2: station throughput + CI
+                      Line 3: station delay + CI
+                      Line 4: Ratio of undelivered frames to total generated frames at end of
+                              sim FOR EACH OF T trials (dont average)
+
