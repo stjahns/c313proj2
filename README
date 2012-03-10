@@ -81,3 +81,20 @@ Simulation
                       Line 4: Ratio of undelivered frames to total generated frames at end of
                               sim FOR EACH OF T trials (dont average)
 
+
+DESIGN:
+
+    Main method - creates instance of Simulator as per command line argument,
+                  runs it
+
+    Simulator - contains code common to each of the 4 protocols (ABSTRACT)
+    -> Subclass Simulator for each protocol?
+        TDMSimulator - T
+        ALOHASimulator - All should work the same pretty much with a diffrent
+        'backoff' method
+            PBSimulator - P
+            IBSimulator - I
+            TBEBSimulator - B
+
+    Running experiments - Use similar bash scripts connected to GNUPlot as for
+    PSIM project
