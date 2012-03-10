@@ -98,3 +98,30 @@ DESIGN:
 
     Running experiments - Use similar bash scripts connected to GNUPlot as for
     PSIM project
+
+    What does the simulator need to DO? -- how can we exploit polymorphism to
+    make things easy...
+
+    For each of T trials...
+        Simulate events occuring over R timeslots...
+        During each timeslot,
+            For each station, 
+                generate a frame with probability p
+                Determine whether or not a frame tx should be attempted 
+                    -> Here is where polymorphism occurs 
+                        - TDM will transmit if the slot number corresponds to the
+                        station
+                        - ALOHA will tx immediately IF first tx OR last tx attempt 
+                        successful, else will tx according to whatever backoff algorithm
+                        its particular instance uses
+
+        At trial end, determine per station ratio of undelivered to total
+        generated frames -> store in some vector or structure
+        Determine overall throughput for trial, store in a vector
+        Maintain running average of overall per-frame delay? also for each
+            station
+
+    After all trials
+    -> Determine average throughput with CI
+    -> Determine average per-frame delay with CI
+    -> Determin per station throughput, delay
