@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "station.h"
 
 Station::Station(int id, double p)
@@ -10,8 +11,9 @@ Station::Station(int id, double p)
 // generate a frame to add to queue with prob. gen_prob
 void Station::generate_frame()
 {
-    // TODO use RNG to increment queue size with prob gen_prob
-    tx_queue++;
+    // use RNG to increment queue size with prob gen_prob
+    if ( drand48() < gen_prob )
+        tx_queue++;
 
 }
 

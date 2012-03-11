@@ -86,6 +86,9 @@ void Simulator::run()
 void Simulator::run_trial( int seed )
 {
 
+    // seed RNG
+    srand48(seed);
+
     // loop for each timeslot 1,2,3 ... R
     for (int slot = 0; slot < this->num_slots; slot++) {
         
