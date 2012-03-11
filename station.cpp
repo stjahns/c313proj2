@@ -19,4 +19,5 @@ void Station::generate_frame()
 void Station::tx_success()
 {
     tx_queue--;
+    delivered++;
 }

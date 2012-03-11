@@ -1,6 +1,10 @@
 CMPUT 313 Assignment 2
 Stephen Jahns and Marek Kundera
 
+TODO - 
+    Steve - TDMStation, PBStation
+    Marek - IBStation TBEBStation
+
 Goal - Compare different backoff strategies for Slotted ALOHA MAC layer protocol
      - ALSO, compare ALOHA strategies with TIME DIVISION MULTIPLEXING
      - Comparisons based on THROUGHPUT and AVERAGE DELAY

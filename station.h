@@ -11,6 +11,7 @@ class Station
 private:
     int id;
     double gen_prob;
+    int delivered;
 
 protected:
     int tx_queue; // size of transmission queue in number of frames
