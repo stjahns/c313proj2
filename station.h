@@ -22,7 +22,7 @@ public:
     virtual bool can_transmit(int slot) = 0; // determine if station will tx in this slot
     virtual void tx_collide() = 0; // called when collision detected, protocol-specific imp
     void generate_frame(); // generate a frame to add to queue with prob. gen_prob
-    void tx_success(); // successful tx removes frame from tx queue
+    virtual void tx_success(); // successful tx removes frame from tx queue
 
 };
 

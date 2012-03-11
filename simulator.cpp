@@ -29,7 +29,7 @@ Simulator::Simulator( params &p )
 
     case 'P':
         for (int i = 0; i < num_stations; i++) {
-            //this->stations.push_back( new PBStation(i, gen_prob) );
+            this->stations.push_back( new PBStation(i, gen_prob, num_stations) );
         }
         break;
 
