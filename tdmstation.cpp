@@ -23,3 +23,8 @@ void TDMStation::tx_collide()
 {
     // For TDM, don't really have any backoff mechanism for handling collisions...
 }
+
+void TDMStation::tx_success()
+{
+    Station::tx_success(); // dont really need to do anything more..
+}
