@@ -1,4 +1,4 @@
-OBJS = main.o simulator.o station.o tdmstation.o
+OBJS = main.o simulator.o station.o tdmstation.o ibstation.o tbebstation.o pbstation.o
 CC = g++
 CFLAGS = -Wall -c -g
 LFLAGS = -Wall -lm
@@ -19,6 +19,15 @@ station.o: station.cpp station.h
 	$(CC) $(CFLAGS) $<
 
 tdmstation.o: tdmstation.cpp tdmstation.h
+	$(CC) $(CFLAGS) $<
+
+pbstation.o: pbstation.cpp pbstation.h
+	$(CC) $(CFLAGS) $<
+
+ibstation.o: ibstation.cpp ibstation.h
+	$(CC) $(CFLAGS) $<
+
+tbebstation.o: tbebstation.cpp tbebstation.h
 	$(CC) $(CFLAGS) $<
 
 ctags:

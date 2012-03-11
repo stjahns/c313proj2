@@ -11,7 +11,7 @@ IBStation::IBStation(int id, double p) : Station(id, p)
  */
 bool IBStation::can_transmit(int slot)
 {
-    return false
+    return false;
 }
 
 void IBStation::tx_collide()

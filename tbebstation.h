@@ -10,7 +10,7 @@ private:
     int id;
     
 public:
-    TBEBStation(int id, double p, int total_slots);
+    TBEBStation(int id, double p);
     virtual bool can_transmit(int slot);
     virtual void tx_collide();
 };

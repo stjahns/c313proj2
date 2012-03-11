@@ -10,6 +10,7 @@ PBStation::PBStation(int id, double p) : Station(id, p)
  * transmit
  */
 bool PBStation::can_transmit(int slot)
+{
     return false;
 }
 
