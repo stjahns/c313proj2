@@ -26,11 +26,14 @@ int main( int argc, char **argv )
 
     print_params(p);
 
-    Simulator sim(p);
-    // TODO instance specific Simulator as per argument (TDMSimulator,
-    // TBEBSimulator, etc
-    
-    sim.run();
+    try {
+
+        Simulator sim(p);
+        sim.run();
+
+    } catch (int e) {
+        cerr << "Something went horribly wrong!" << endl;
+    }
 
     return 0;
 }

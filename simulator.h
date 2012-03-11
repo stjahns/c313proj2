@@ -1,4 +1,5 @@
 #include <vector>
+#include "station.h"
 
 using namespace std;
 
@@ -20,13 +21,13 @@ private:
     int num_slots;
     int num_trials;
     vector<int> seeds;
+    vector<Station*> stations;
 
     /***********************************************************************
      * Run a single trial of simulation
      ***********************************************************************/
     void run_trial( int seed );
 
-#endif
 
 public:
 
@@ -44,6 +45,7 @@ public:
      * struct
      ***********************************************************************/
     Simulator( params &p );
+    ~Simulator();
     void run();
     
 };

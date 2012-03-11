@@ -95,6 +95,8 @@ DESIGN:
             PBSimulator - P
             IBSimulator - I
             TBEBSimulator - B
+    -> NO - Use just one simulator class, and then have multiple different 
+    'Station' classes that each implement a different backoff method!
 
     Running experiments - Use similar bash scripts connected to GNUPlot as for
     PSIM project
