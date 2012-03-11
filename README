@@ -87,16 +87,18 @@ DESIGN:
     Main method - creates instance of Simulator as per command line argument,
                   runs it
 
-    Simulator - contains code common to each of the 4 protocols (ABSTRACT)
-    -> Subclass Simulator for each protocol?
-        TDMSimulator - T
-        ALOHASimulator - All should work the same pretty much with a diffrent
-        'backoff' method
-            PBSimulator - P
-            IBSimulator - I
-            TBEBSimulator - B
-    -> NO - Use just one simulator class, and then have multiple different 
-    'Station' classes that each implement a different backoff method!
+    Simulator - contains code common to each of the 4 protocols 
+              - Contains a vector of 'Stations' - representing all the
+              stations on the bus
+
+    -> Subclass Station for each protocol?
+        TDMStation - T
+        PBStation - P
+        IBStation - I
+        TBEBStation - B
+       
+        - Each station type will handle transmission eligibility and
+        collission handling differently
 
     Running experiments - Use similar bash scripts connected to GNUPlot as for
     PSIM project
