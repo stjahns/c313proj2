@@ -158,23 +158,20 @@ void Simulator::print_stats()
         print_station_stats(id);
     }
 
-#if 0
     //testing
+#if 0
+    cout << "INFO FOR TESTING/DEBUGGING:" << endl;
+
     for (int j = 0; j < num_trials; j++) {
 		for (int i = 0; i < num_stations; i++) {
-            Station *s = all_stations[j][i];
-            /*
 			cout << all_stations[j].at(i)->current_stats.total_frames_gen << endl;
 			cout << all_stations[j].at(i)->current_stats.delivered_frames << endl;
 			cout << all_stations[j].at(i)->current_stats.total_delay << endl;
-            */
-            print_station_stats(s);
 			cout << "-" << endl;
 		}
 
 		cout << "---------" << endl;
 	}
-#endif
 
 //	cout << id << " " <<
 //			throughput-of-n1 	<< " " <<
@@ -189,9 +186,20 @@ void Simulator::print_stats()
 //			undelivered5 << "/" << total5 << " " <<
 //
 //	    cout << endl;
+
+#endif
+
 }
 
-void Simulator::print_station_stats(int id) // print stats for single station
+/***********************************************************************
+ * Print statistics for a single station over all the trials
+ * TODO all on one line!
+ * - Station number
+ * - CI for throughput
+ * - CI for delay
+ * - Ratios of undelivered to total generated frames for each trial
+ ***********************************************************************/
+void Simulator::print_station_stats(int id) 
 {
 
     // calculate mean throughput ( total frames delivered / number of slots )
@@ -205,6 +213,12 @@ void Simulator::print_station_stats(int id) // print stats for single station
         total_frames_delivered += s->current_stats.delivered_frames;
         total_delay += s->current_stats.total_delay;
 
+        if (id == 0) {
+
+            cout << "trial " << trial << " delay: " << s->current_stats.total_delay << endl;
+
+
+        }
     }
 
     // TODO check if this is actually how these metrics should be defined...
@@ -214,10 +228,16 @@ void Simulator::print_station_stats(int id) // print stats for single station
     double mean_delay = (double)total_delay 
                  / (double)total_frames_delivered; // average delay per frame delivered
 
+    cout << "total delay: " << total_delay << endl;
+    cout << "frames delivered: " << total_frames_delivered << endl;
+    cout << "mean delay: " << mean_delay << endl;
+    
     // calculate MSE for throughput and delay
     double mse_throughput = 0;
     double mse_delay = 0;
 
+    // FIXME / TODO -> if no frames generated or delivered, will get NAN's
+    
     for (unsigned int trial = 0; trial < all_stations.size(); trial++ ) {
 
         Station *s = all_stations[trial][id]; // get station for that trial
@@ -243,5 +263,20 @@ void Simulator::print_station_stats(int id) // print stats for single station
     cout << id + 1 << endl // our stations indexed from 0, specs want from 1
          << throughput_ci << endl
          << delay_ci << endl;
+
+
+    // print ratios of undelivered to total generated frames for each trial
+    for (unsigned int trial = 0; trial < all_stations.size(); trial++) {
+
+        Station *s = all_stations[trial][id]; // get station instance for that trial
+        double ratio = 
+              (double) s->current_stats.delay.size()
+            / (double) s->current_stats.total_frames_gen;
+
+        cout << " " << ratio;
+
+    }
+
+    cout << endl;
 
 }
