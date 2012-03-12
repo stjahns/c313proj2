@@ -31,6 +31,7 @@ bool TBEBStation::can_transmit(int slot)
 
 void TBEBStation::tx_collide(int slot)
 {
+	Station::tx_collide(slot); // call superclass method
 	last_tx_success = false;
 	//backoff interval increases geometrically after every collision
 	if (collisions <= 10)

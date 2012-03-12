@@ -22,8 +22,6 @@ Simulator::Simulator( params &p )
     this->num_trials = p.num_trials;
     this->seeds = p.seeds;
 
-
-
     // create vector of 'num_stations' stations
     switch( p.protocol ) {
 
@@ -95,11 +93,12 @@ void Simulator::run()
 
     // print statistics ?
 
-    for (int j = 0; j < num_trials; j++) {
-		for (int i = 0; i < num_stations; i++) {
-			all_stations[j].at(i)->print_stats();
-		}
-	}
+    //testing
+//    for (int j = 0; j < num_trials; j++) {
+//		for (int i = 0; i < num_stations; i++) {
+//			all_stations[j].at(i)->print_stats();
+//		}
+//	}
 
 }
 
@@ -145,4 +144,24 @@ void Simulator::run_trial(unsigned int trial, int seed )
             }
         }
     }
+}
+
+// print stats for station
+void Simulator::print_stats()
+{
+	// cout << id << endl; //tested vector structure
+
+//	cout << id << " " <<
+//			throughput-of-n1 	<< " " <<
+//			confidence-interval << " " <<
+//			avg-delay-of-n1 	<< " " <<
+//			confidence-interval << " " <<
+//
+//			undelivered1 << "/" << total1 << " " <<
+//			undelivered2 << "/" << total2 << " " <<
+//			undelivered3 << "/" << total3 << " " <<
+//			undelivered4 << "/" << total4 << " " <<
+//			undelivered5 << "/" << total5 << " " <<
+//
+//	    cout << endl;
 }

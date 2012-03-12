@@ -21,6 +21,8 @@ bool TDMStation::can_transmit(int slot)
 
 void TDMStation::tx_collide(int slot)
 {
+	Station::tx_collide(slot); // call superclass method
+
     // For TDM, don't really have any backoff mechanism for handling collisions...
 }
 

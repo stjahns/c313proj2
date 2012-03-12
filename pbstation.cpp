@@ -34,6 +34,7 @@ bool PBStation::can_transmit(int slot)
  */
 void PBStation::tx_collide(int slot)
 {
+	Station::tx_collide(slot); // call superclass method
     last_tx_success = false;
 }
 

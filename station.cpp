@@ -1,8 +1,4 @@
 #include <cstdlib>
-#include <iostream>
-#include <fstream>
-
-using namespace std;
 
 #include "station.h"
 
@@ -11,14 +7,20 @@ Station::Station(int id, double p)
     this->id = id;
     this->tx_queue = 0;
     this->gen_prob = p;
+
+    current_stats.delivered_frames = 0;
+    current_stats.total_frames_gen = 0;
 }
 
 // generate a frame to add to queue with prob. gen_prob
 void Station::generate_frame()
 {
     // use RNG to increment queue size with prob gen_prob
-    if ( drand48() < gen_prob )
+    if ( drand48() < gen_prob ) {
         tx_queue++;
+        current_stats.total_frames_gen++;
+        current_stats.delay.push_back(0);
+    }
 
 }
 
@@ -26,25 +28,18 @@ void Station::generate_frame()
 void Station::tx_success()
 {
     tx_queue--;
-    delivered++;
+    current_stats.delivered_frames++;
+
+    for (unsigned int i = 0; i < current_stats.delay.size(); i++)
+    	current_stats.delay.at(i)++;
+
+    current_stats.total_delay += current_stats.delay.front();
+    current_stats.delay.pop_front();
 }
 
-// print stats for station
-void Station::print_stats()
+// successful tx removes frame from tx queue
+void Station::tx_collide(int slot)
 {
-	// cout << id << endl; //tested vector structure
-
-//	cout << id << " " <<
-//			throughput-of-n1 	<< " " <<
-//			confidence-interval << " " <<
-//			avg-delay-of-n1 	<< " " <<
-//			confidence-interval << " " <<
-//
-//			undelivered1 << "/" << total1 << " " <<
-//			undelivered2 << "/" << total2 << " " <<
-//			undelivered3 << "/" << total3 << " " <<
-//			undelivered4 << "/" << total4 << " " <<
-//			undelivered5 << "/" << total5 << " " <<
-//
-//	    cout << endl;
+	for (unsigned int i = 0; i < current_stats.delay.size(); i++)
+	    	current_stats.delay.at(i)++;
 }

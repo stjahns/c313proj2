@@ -31,6 +31,7 @@ bool IBStation::can_transmit(int slot)
 
 void IBStation::tx_collide(int slot)
 {
+	Station::tx_collide(slot); // call superclass method
 	last_tx_success = false;
 
 	//randomly select slot for next retransmission attempt

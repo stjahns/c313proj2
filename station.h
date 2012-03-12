@@ -1,3 +1,4 @@
+#include <deque>
 #ifndef STATION_H
 #define STATION_H
 
@@ -11,7 +12,6 @@ class Station
 private:
     int id;
     double gen_prob;
-    int delivered;
 
 
 protected:
@@ -24,17 +24,16 @@ public:
     virtual void tx_collide(int slot) = 0; // called when collision detected, protocol-specific imp
     void generate_frame(); // generate a frame to add to queue with prob. gen_prob
     virtual void tx_success(); // successful tx removes frame from tx queue
-    void print_stats(); //prints statistics for the station
 
-    struct stats {
+	struct stats {
         int delivered_frames;
-        int undelivered_frames;
-        double throughput;
-        double delay;
+        int total_frames_gen;
+        int total_delay;
+        std::deque<int> delay;
     };
 
+    stats current_stats;
     //vector<stats> trial_stats;
-    //stats current_stats;
 };
 
 #endif
