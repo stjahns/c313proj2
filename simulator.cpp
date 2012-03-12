@@ -213,12 +213,6 @@ void Simulator::print_station_stats(int id)
         total_frames_delivered += s->current_stats.delivered_frames;
         total_delay += s->current_stats.total_delay;
 
-        if (id == 0) {
-
-            cout << "trial " << trial << " delay: " << s->current_stats.total_delay << endl;
-
-
-        }
     }
 
     // TODO check if this is actually how these metrics should be defined...
@@ -228,10 +222,6 @@ void Simulator::print_station_stats(int id)
     double mean_delay = (double)total_delay 
                  / (double)total_frames_delivered; // average delay per frame delivered
 
-    cout << "total delay: " << total_delay << endl;
-    cout << "frames delivered: " << total_frames_delivered << endl;
-    cout << "mean delay: " << mean_delay << endl;
-    
     // calculate MSE for throughput and delay
     double mse_throughput = 0;
     double mse_delay = 0;
