@@ -31,6 +31,7 @@ Simulator::Simulator( params &p )
 				this->stations.push_back(new TDMStation(i, gen_prob, num_stations));
 			}
 			this->all_stations.push_back(stations);
+			stations.clear();
     	}
         break;
 
@@ -40,6 +41,7 @@ Simulator::Simulator( params &p )
 				this->stations.push_back(new PBStation(i, gen_prob, num_stations));
 			}
 			this->all_stations.push_back(stations);
+			stations.clear();
         }
         break;
 
@@ -49,6 +51,7 @@ Simulator::Simulator( params &p )
 				this->stations.push_back(new IBStation(i, gen_prob, num_stations));
 			}
 			this->all_stations.push_back(stations);
+			stations.clear();
         }
         break;
 
@@ -58,6 +61,7 @@ Simulator::Simulator( params &p )
 				this->stations.push_back(new TBEBStation(i, gen_prob, num_stations));
 			}
 			this->all_stations.push_back(stations);
+			stations.clear();
         }
         break;
 
@@ -103,7 +107,7 @@ void Simulator::run()
  ***********************************************************************/
 void Simulator::run_trial(unsigned int trial, int seed )
 {
-    // seed RNG
+	// seed RNG
     srand48(seed);
 
     // loop for each timeslot 1,2,3 ... R
@@ -150,7 +154,10 @@ void Simulator::print_stats()
 			cout << all_stations[j].at(i)->current_stats.total_frames_gen << endl;
 			cout << all_stations[j].at(i)->current_stats.delivered_frames << endl;
 			cout << all_stations[j].at(i)->current_stats.total_delay << endl;
+			cout << "-" << endl;
 		}
+
+		cout << "---------" << endl;
 	}
 
 //	cout << id << " " <<
