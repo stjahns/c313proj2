@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <iostream>
 
 #include "station.h"
 
@@ -30,16 +31,19 @@ void Station::tx_success()
     tx_queue--;
     current_stats.delivered_frames++;
 
+    // increment delays for each queued frame
     for (unsigned int i = 0; i < current_stats.delay.size(); i++)
     	current_stats.delay.at(i)++;
 
     current_stats.total_delay += current_stats.delay.front();
     current_stats.delay.pop_front();
+
 }
 
 // successful tx removes frame from tx queue
 void Station::tx_collide(int slot)
 {
+    // increment delays for each queued frame
 	for (unsigned int i = 0; i < current_stats.delay.size(); i++)
 	    	current_stats.delay.at(i)++;
 }

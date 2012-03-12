@@ -10,7 +10,6 @@ class Station
 {
 
 private:
-    int id;
     double gen_prob;
 
 
@@ -33,7 +32,7 @@ public:
     };
 
     stats current_stats;
-    //vector<stats> trial_stats;
+    int id;
 };
 
 #endif

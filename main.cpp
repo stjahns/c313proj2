@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 int read_params( Simulator::params &p, int argc, char **argv );
 void print_params( Simulator::params &p );
 

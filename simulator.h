@@ -1,8 +1,10 @@
 #include <vector>
+#include <ostream>
 #include "station.h"
 
 #ifndef SIMULATOR_H
 #define SIMULATOR_H
+
 
 /**
  * Abstract simulator class. Subclass for the various TDM and ALOHA protocols 
@@ -23,10 +25,13 @@ private:
     Stations stations;
     std::vector<Stations> all_stations;
 
+    int total_slots;
+
     /***********************************************************************
      * Run a single trial of simulation
      ***********************************************************************/
     void run_trial(unsigned int trial, int seed);
+    Station* create_station(char type, int index, double p, int num_stations);
 
 
 public:
@@ -49,10 +54,13 @@ public:
     void run();
     
     void print_stats(); //prints statistics for the station
-    void calc_throughput();
+    void print_station_stats(int id); // print stats for single station over all trials
+    void calc_throughput(); // throughput is # frames delivered / number of slots
 	void calc_throughput_CI();
 	void calc_avg_delay();
 	void calc_avg_delay_CI();
+
 };
+
 
 #endif

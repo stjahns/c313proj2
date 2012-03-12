@@ -12,6 +12,7 @@ using namespace std;
 #include "tdmstation.h"
 #include "ibstation.h"
 #include "tbebstation.h"
+#include "conf_int.h"
 
 Simulator::Simulator( params &p )
 {
@@ -22,65 +23,67 @@ Simulator::Simulator( params &p )
     this->num_trials = p.num_trials;
     this->seeds = p.seeds;
 
-    // create vector of 'num_stations' stations
-    switch( p.protocol ) {
+    // create vector of 'num_stations' stations for each of 'num_trials' trials,
+    // according to the type of protocol being tested as per cmdline args
+    for (int j = 0; j < num_trials; j++) {
 
-    case 'T':
-    	for (int j = 0; j < num_trials; j++) {
-			for (int i = 0; i < num_stations; i++) {
-				this->stations.push_back(new TDMStation(i, gen_prob, num_stations));
-			}
-			this->all_stations.push_back(stations);
-			stations.clear();
-    	}
-        break;
-
-    case 'P':
-    	for (int j = 0; j < num_trials; j++) {
-			for (int i = 0; i < num_stations; i++) {
-				this->stations.push_back(new PBStation(i, gen_prob, num_stations));
-			}
-			this->all_stations.push_back(stations);
-			stations.clear();
+        for (int i = 0; i < num_stations; i++) {
+            this->stations.push_back(create_station(p.protocol, i, gen_prob, num_stations));
         }
-        break;
 
-    case 'I':
-    	for (int j = 0; j < num_trials; j++) {
-			for (int i = 0; i < num_stations; i++) {
-				this->stations.push_back(new IBStation(i, gen_prob, num_stations));
-			}
-			this->all_stations.push_back(stations);
-			stations.clear();
-        }
-        break;
+        this->all_stations.push_back(stations);
+        stations.clear();
 
-    case 'B':
-    	for (int j = 0; j < num_trials; j++) {
-			for (int i = 0; i < num_stations; i++) {
-				this->stations.push_back(new TBEBStation(i, gen_prob, num_stations));
-			}
-			this->all_stations.push_back(stations);
-			stations.clear();
-        }
-        break;
-
-    default:
-        cerr << "Invalid protocol: " << p.protocol << endl;
-        throw 0;
     }
 
+    // for stats:
+    this->total_slots = num_slots * num_trials;
 
 }
 
-// Destructor, clean up allocated memory
-Simulator::~Simulator()
+/**
+ * Return a new allocated station as per the protocol type being used
+ */
+Station* Simulator::create_station( char type, int index, double p, int num_stations ) 
 {
-    // delete all the allocated stations
-    for (unsigned int i = 0; i < stations.size(); i++ ) {
-        delete stations[i];
+
+    Station *station = 0;
+
+    switch (type) {
+
+    case 'T':
+        station = new TDMStation(index, p, num_stations);
+        break;
+
+    case 'P':
+        station = new PBStation(index, p, num_stations);
+        break;
+        
+    case 'I':
+        station = new IBStation(index, p, num_stations);
+        break;
+
+    case 'B':
+        station = new TBEBStation(index, p, num_stations);
+        break;
+
+    default:
+        cerr << "Invalid protocol: " << type << endl;
+        throw 0;
     }
 
+    return station;
+}
+
+// Destructor, clean up allocated memory for each station
+Simulator::~Simulator()
+{
+    for (unsigned int i = 0; i < all_stations.size(); i++ ) {
+        Stations s = all_stations[i];
+        for (unsigned int j = 0; j < s.size(); j++ ) {
+            delete s[j];
+        }
+    }
 }
 
 /***********************************************************************
@@ -148,17 +151,30 @@ void Simulator::run_trial(unsigned int trial, int seed )
 // print stats for station
 void Simulator::print_stats()
 {
+    // TODO print overall stats
+
+    // print per station stats
+    for (int id = 0; id < num_stations; id++ ) {
+        print_station_stats(id);
+    }
+
+#if 0
     //testing
     for (int j = 0; j < num_trials; j++) {
 		for (int i = 0; i < num_stations; i++) {
+            Station *s = all_stations[j][i];
+            /*
 			cout << all_stations[j].at(i)->current_stats.total_frames_gen << endl;
 			cout << all_stations[j].at(i)->current_stats.delivered_frames << endl;
 			cout << all_stations[j].at(i)->current_stats.total_delay << endl;
+            */
+            print_station_stats(s);
 			cout << "-" << endl;
 		}
 
 		cout << "---------" << endl;
 	}
+#endif
 
 //	cout << id << " " <<
 //			throughput-of-n1 	<< " " <<
@@ -173,4 +189,59 @@ void Simulator::print_stats()
 //			undelivered5 << "/" << total5 << " " <<
 //
 //	    cout << endl;
+}
+
+void Simulator::print_station_stats(int id) // print stats for single station
+{
+
+    // calculate mean throughput ( total frames delivered / number of slots )
+    // and mean delay
+    int total_frames_delivered = 0;
+    int total_delay = 0;
+    for (unsigned int trial = 0; trial < all_stations.size(); trial++ ) {
+
+        Station *s = all_stations[trial][id]; // get station for that trial
+
+        total_frames_delivered += s->current_stats.delivered_frames;
+        total_delay += s->current_stats.total_delay;
+
+    }
+
+    // TODO check if this is actually how these metrics should be defined...
+    double mean_throughput = (double)total_frames_delivered 
+                      / (double)total_slots; // average throughput
+
+    double mean_delay = (double)total_delay 
+                 / (double)total_frames_delivered; // average delay per frame delivered
+
+    // calculate MSE for throughput and delay
+    double mse_throughput = 0;
+    double mse_delay = 0;
+
+    for (unsigned int trial = 0; trial < all_stations.size(); trial++ ) {
+
+        Station *s = all_stations[trial][id]; // get station for that trial
+
+        double trial_throughput = (double) s->current_stats.delivered_frames
+                                / (double) num_slots;
+
+        mse_throughput += (trial_throughput - mean_throughput) 
+                        * (trial_throughput - mean_throughput);
+
+        double trial_delay = (double) s->current_stats.total_delay
+                           / (double) s->current_stats.delivered_frames;
+
+        mse_delay += (trial_delay - mean_delay) 
+                   * (trial_delay - mean_delay);
+
+    }
+
+    // calculate ci's for throughput and delay
+    conf_int throughput_ci = calc_ci(mean_throughput, mse_throughput, num_trials);
+    conf_int delay_ci = calc_ci(mean_delay, mse_delay, num_trials);
+
+    cout << id + 1 << endl // our stations indexed from 0, specs want from 1
+         << throughput_ci << endl
+         << delay_ci << endl;
+
 }

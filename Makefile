@@ -1,4 +1,4 @@
-OBJS = main.o simulator.o station.o tdmstation.o ibstation.o tbebstation.o pbstation.o
+OBJS = main.o simulator.o station.o tdmstation.o ibstation.o tbebstation.o pbstation.o conf_int.o
 CC = g++
 CFLAGS = -Wall -c -g
 LFLAGS = -Wall -lm
@@ -30,6 +30,9 @@ ibstation.o: ibstation.cpp ibstation.h
 tbebstation.o: tbebstation.cpp tbebstation.h
 	$(CC) $(CFLAGS) $<
 
+conf_int.o: conf_int.cpp conf_int.h
+	$(CC) $(CFLAGS) $<
+
 ctags:
 	ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
 
@@ -40,4 +43,4 @@ clean:
 	rm -rf *.o psim report.pdf
 
 run:
-	./psim T 5 0.01 10 5 1 2 3 4 5
+	./psim T 5 0.01 1000 1 1

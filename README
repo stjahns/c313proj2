@@ -1,6 +1,11 @@
 CMPUT 313 Assignment 2
 Stephen Jahns and Marek Kundera
 
+DISCUSSION
+    Steve: In main.cpp, I don't think we need to print the seeds:
+    "The output consists of several lines. The first line of output repeats the
+    input parameters (without the seeds), again formatted in one single line."
+
 TODO - 
     Steve - TDMStation, PBStation
     Marek - IBStation TBEBStation
