@@ -240,12 +240,6 @@ void Simulator::print_station_stats(int id)
         total_frames_delivered += s->current_stats.delivered_frames;
         total_delay += s->current_stats.total_delay;
 
-        if (id == 0) {
-
-            cout << "trial " << trial << " delay: " << s->current_stats.total_delay << endl;
-
-
-        }
     }
 
     double mean_throughput = (double)total_frames_delivered 
@@ -254,10 +248,6 @@ void Simulator::print_station_stats(int id)
     double mean_delay = ((double)total_delay
                  / (double)total_frames_delivered)/all_stations.size(); // average delay per frame delivered
 
-    cout << "total delay: " << total_delay << endl; //over all trials for one
-    cout << "frames delivered: " << total_frames_delivered << endl; //over all trials
-    cout << "mean delay: " << mean_delay << endl; //average over 5 trials
-    
     // calculate MSE for throughput and delay
     double mse_throughput = 0;
     double mse_delay = 0;
@@ -272,7 +262,6 @@ void Simulator::print_station_stats(int id)
         mse_throughput += (trial_throughput - mean_throughput) 
                         * (trial_throughput - mean_throughput);
 
-        //TODO confirm the trial delay is being calculated properly when divided by all_stations size?
         double trial_delay = ((double) s->current_stats.total_delay
                            / (double) s->current_stats.delivered_frames)/all_stations.size();
 
