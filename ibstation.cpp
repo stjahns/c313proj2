@@ -32,8 +32,8 @@ bool IBStation::can_transmit(int slot)
 void IBStation::tx_collide(int slot)
 {
 	last_tx_success = false;
-	//randomly select slot for next retransmission attempt
 
+	//randomly select slot for next retransmission attempt
 	next_attempt = slot + ceil(drand48() * total_stations);
 }
 

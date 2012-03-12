@@ -11,6 +11,7 @@ using namespace std;
 #include "pbstation.h"
 #include "tdmstation.h"
 #include "ibstation.h"
+#include "tbebstation.h"
 
 Simulator::Simulator( params &p )
 {
@@ -44,7 +45,7 @@ Simulator::Simulator( params &p )
 
     case 'B':
         for (int i = 0; i < num_stations; i++) {
-            //this->stations.push_back( new TBEBStation(i, gen_prob) );
+            this->stations.push_back(new TBEBStation(i, gen_prob, num_stations));
         }
         break;
 
