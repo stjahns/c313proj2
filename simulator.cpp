@@ -261,7 +261,6 @@ void Simulator::print_station_stats(int id)
         mse_throughput += (trial_throughput - mean_throughput) 
                         * (trial_throughput - mean_throughput);
 
-        //TODO confirm the trial delay is being calculated properly when divided by all_stations size?
         double trial_delay = ((double) s->current_stats.total_delay
                            / (double) s->current_stats.delivered_frames)/all_stations.size();
 
