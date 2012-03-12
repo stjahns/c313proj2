@@ -11,6 +11,7 @@ Station::Station(int id, double p)
 
     current_stats.delivered_frames = 0;
     current_stats.total_frames_gen = 0;
+    current_stats.total_delay = 0;
 }
 
 // generate a frame to add to queue with prob. gen_prob
