@@ -239,13 +239,6 @@ void Simulator::print_station_stats(int id)
 
         total_frames_delivered += s->current_stats.delivered_frames;
         total_delay += s->current_stats.total_delay;
-
-        if (id == 0) {
-
-            cout << "trial " << trial << " delay: " << s->current_stats.total_delay << endl;
-
-
-        }
     }
 
     double mean_throughput = (double)total_frames_delivered 
@@ -254,10 +247,6 @@ void Simulator::print_station_stats(int id)
     double mean_delay = ((double)total_delay
                  / (double)total_frames_delivered)/all_stations.size(); // average delay per frame delivered
 
-    cout << "total delay: " << total_delay << endl; //over all trials for one
-    cout << "frames delivered: " << total_frames_delivered << endl; //over all trials
-    cout << "mean delay: " << mean_delay << endl; //average over 5 trials
-    
     // calculate MSE for throughput and delay
     double mse_throughput = 0;
     double mse_delay = 0;
@@ -285,9 +274,9 @@ void Simulator::print_station_stats(int id)
     conf_int throughput_ci = calc_ci(mean_throughput, mse_throughput, num_trials);
     conf_int delay_ci = calc_ci(mean_delay, mse_delay, num_trials);
 
-    cout << id + 1 << endl // our stations indexed from 0, specs want from 1
-         << throughput_ci << endl
-         << delay_ci << endl;
+    cout << id + 1 << " " // our stations indexed from 0, specs want from 1
+         << throughput_ci <<  " "
+         << delay_ci;
 
 
     // print ratios of undelivered to total generated frames for each trial
