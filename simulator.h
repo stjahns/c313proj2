@@ -7,10 +7,8 @@
 
 
 /**
- * Abstract simulator class. Subclass for the various TDM and ALOHA protocols 
- * to simulate
- */
-
+ * Simulator  - TODO documentation
+ **/
 class Simulator 
 {
 
@@ -29,11 +27,21 @@ private:
      * Run a single trial of simulation
      ***********************************************************************/
     void run_trial(unsigned int trial, int seed);
+
+    // allocate a new station object for the correct MAC protocol type
     Station* create_station(char type, int index, double p, int num_stations);
+    
+    // print stats for the entire hub over all trials
+    void print_overall_stats(); 
+    
+    // print stats for single station over all trials
+    void print_station_stats(int id); 
 
 
 public:
 
+    // structure to contain simulation params to pass to constructor, parse
+    // into from cmdline
     struct params {
         char protocol;
         int num_stations;
@@ -48,15 +56,12 @@ public:
      * struct
      ***********************************************************************/
     Simulator( params &p );
-    ~Simulator();
-    void run();
     
-    void print_overall_stats();
-    void print_station_stats(int id); // print stats for single station over all trials
-    void calc_throughput(); // throughput is # frames delivered / number of slots
-	void calc_throughput_CI();
-	void calc_avg_delay();
-	void calc_avg_delay_CI();
+    // free mem associated with station vectors
+    ~Simulator();
+
+    // run the simulation with given params, output statistics to stdout
+    void run();
 
 };
 
