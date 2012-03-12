@@ -25,8 +25,6 @@ private:
     Stations stations;
     std::vector<Stations> all_stations;
 
-    int total_slots;
-
     /***********************************************************************
      * Run a single trial of simulation
      ***********************************************************************/
@@ -53,7 +51,7 @@ public:
     ~Simulator();
     void run();
     
-    void print_stats(); //prints statistics for the station
+    void print_overall_stats();
     void print_station_stats(int id); // print stats for single station over all trials
     void calc_throughput(); // throughput is # frames delivered / number of slots
 	void calc_throughput_CI();
