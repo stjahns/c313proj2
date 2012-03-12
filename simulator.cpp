@@ -10,6 +10,7 @@ using namespace std;
 #include "station.h"
 #include "pbstation.h"
 #include "tdmstation.h"
+#include "ibstation.h"
 
 Simulator::Simulator( params &p )
 {
@@ -37,7 +38,7 @@ Simulator::Simulator( params &p )
 
     case 'I':
         for (int i = 0; i < num_stations; i++) {
-            //this->stations.push_back( new IBStation(i, gen_prob) );
+            this->stations.push_back(new IBStation(i, gen_prob, num_stations));
         }
         break;
 

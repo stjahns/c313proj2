@@ -8,13 +8,15 @@ class IBStation : public Station
 
 private:
     int id;
-    int assigned_slot;
-    int total_slots;
+    bool last_tx_success;
+    int total_stations;
+    int next_attempt;
     
 public:
-    IBStation(int id, double p);
+    IBStation(int id, double p, int num_stations);
     virtual bool can_transmit(int slot);
     virtual void tx_collide();
+    virtual void tx_success();
 };
 
 #endif
