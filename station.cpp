@@ -33,10 +33,12 @@ void Station::tx_success()
     current_stats.delivered_frames++;
 
     // increment delays for each queued frame
-    for (unsigned int i = 0; i < current_stats.delay.size(); i++)
+    for (unsigned int i = 0; i < current_stats.delay.size(); i++) {
     	current_stats.delay.at(i)++;
+    }
 
     current_stats.total_delay += current_stats.delay.front();
+    //cout << "ID: " << id << " TOTAL: " << current_stats.total_delay << endl;
     current_stats.delay.pop_front();
 
 }
