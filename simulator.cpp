@@ -93,12 +93,7 @@ void Simulator::run()
 
     // print statistics ?
 
-    //testing
-//    for (int j = 0; j < num_trials; j++) {
-//		for (int i = 0; i < num_stations; i++) {
-//			all_stations[j].at(i)->print_stats();
-//		}
-//	}
+    print_stats();
 
 }
 
@@ -149,7 +144,14 @@ void Simulator::run_trial(unsigned int trial, int seed )
 // print stats for station
 void Simulator::print_stats()
 {
-	// cout << id << endl; //tested vector structure
+    //testing
+    for (int j = 0; j < num_trials; j++) {
+		for (int i = 0; i < num_stations; i++) {
+			cout << all_stations[j].at(i)->current_stats.total_frames_gen << endl;
+			cout << all_stations[j].at(i)->current_stats.delivered_frames << endl;
+			cout << all_stations[j].at(i)->current_stats.total_delay << endl;
+		}
+	}
 
 //	cout << id << " " <<
 //			throughput-of-n1 	<< " " <<
