@@ -13,6 +13,7 @@ private:
     double gen_prob;
     int delivered;
 
+
 protected:
     int tx_queue; // size of transmission queue in number of frames
     
@@ -23,19 +24,17 @@ public:
     virtual void tx_collide(int slot) = 0; // called when collision detected, protocol-specific imp
     void generate_frame(); // generate a frame to add to queue with prob. gen_prob
     virtual void tx_success(); // successful tx removes frame from tx queue
+    void print_stats(); //prints statistics for the station
 
-    /*
     struct stats {
         int delivered_frames;
         int undelivered_frames;
         double throughput;
-        double delay
+        double delay;
     };
 
-    vector<stats> trial_stats;
-    stats current_stats;
-    */
-
+    //vector<stats> trial_stats;
+    //stats current_stats;
 };
 
 #endif

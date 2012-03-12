@@ -21,12 +21,14 @@ private:
     int num_slots;
     int num_trials;
     vector<int> seeds;
-    vector<Station*> stations;
+    typedef vector<Station*> Stations;
+    Stations stations;
+    vector<Stations> all_stations;
 
     /***********************************************************************
      * Run a single trial of simulation
      ***********************************************************************/
-    void run_trial( int seed );
+    void run_trial(unsigned int trial, int seed);
 
 
 public:

@@ -22,30 +22,44 @@ Simulator::Simulator( params &p )
     this->num_trials = p.num_trials;
     this->seeds = p.seeds;
 
+
+
     // create vector of 'num_stations' stations
     switch( p.protocol ) {
 
     case 'T':
-        for (int i = 0; i < num_stations; i++) {
-            this->stations.push_back(new TDMStation(i, gen_prob, num_stations));
-        }
+    	for (int j = 0; j < num_trials; j++) {
+			for (int i = 0; i < num_stations; i++) {
+				this->stations.push_back(new TDMStation(i, gen_prob, num_stations));
+			}
+			this->all_stations.push_back(stations);
+    	}
         break;
 
     case 'P':
-        for (int i = 0; i < num_stations; i++) {
-            this->stations.push_back(new PBStation(i, gen_prob, num_stations));
+    	for (int j = 0; j < num_trials; j++) {
+			for (int i = 0; i < num_stations; i++) {
+				this->stations.push_back(new PBStation(i, gen_prob, num_stations));
+			}
+			this->all_stations.push_back(stations);
         }
         break;
 
     case 'I':
-        for (int i = 0; i < num_stations; i++) {
-            this->stations.push_back(new IBStation(i, gen_prob, num_stations));
+    	for (int j = 0; j < num_trials; j++) {
+			for (int i = 0; i < num_stations; i++) {
+				this->stations.push_back(new IBStation(i, gen_prob, num_stations));
+			}
+			this->all_stations.push_back(stations);
         }
         break;
 
     case 'B':
-        for (int i = 0; i < num_stations; i++) {
-            this->stations.push_back(new TBEBStation(i, gen_prob, num_stations));
+    	for (int j = 0; j < num_trials; j++) {
+			for (int i = 0; i < num_stations; i++) {
+				this->stations.push_back(new TBEBStation(i, gen_prob, num_stations));
+			}
+			this->all_stations.push_back(stations);
         }
         break;
 
@@ -76,10 +90,16 @@ void Simulator::run()
 
     /* Run T trials of length R */
     for (unsigned int i = 0; i < seeds.size(); i++) {
-        run_trial(seeds[i]);
+        run_trial(i, seeds[i]);
     }
 
     // print statistics ?
+
+    for (int j = 0; j < num_trials; j++) {
+		for (int i = 0; i < num_stations; i++) {
+			all_stations[j].at(i)->print_stats();
+		}
+	}
 
 }
 
@@ -87,9 +107,8 @@ void Simulator::run()
  * Run a single trial of simulation - works the same for all MAC protocols
  * TODO need to collect data!
  ***********************************************************************/
-void Simulator::run_trial( int seed )
+void Simulator::run_trial(unsigned int trial, int seed )
 {
-
     // seed RNG
     srand48(seed);
 
@@ -101,7 +120,7 @@ void Simulator::run_trial( int seed )
 
         // for each station...
         for (int i = 0; i < this->num_stations; i++ ) {
-            Station *station = stations[i];
+            Station *station = all_stations[trial].at(i);
         
             // probabilistically generate a frame to tx 
             station->generate_frame();

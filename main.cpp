@@ -80,7 +80,10 @@ void print_params( Simulator::params &p ) {
             p.num_stations << " " <<
             fixed << p.gen_prob << " " <<
             p.num_slots << " " <<
-            p.num_trials;
-    cout << endl;
+            p.num_trials  << " ";
 
+    for (int k = 0; k < p.num_trials - 1; k++) {
+    		cout << p.seeds.at(k) << " ";
+    	}
+    	cout << p.seeds.back() << endl;
 }
