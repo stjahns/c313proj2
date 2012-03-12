@@ -19,7 +19,7 @@ bool TDMStation::can_transmit(int slot)
         return false;
 }
 
-void TDMStation::tx_collide()
+void TDMStation::tx_collide(int slot)
 {
     // For TDM, don't really have any backoff mechanism for handling collisions...
 }

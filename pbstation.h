@@ -14,7 +14,7 @@ private:
 public:
     PBStation(int id, double p, int num_stations);
     virtual bool can_transmit(int slot);
-    virtual void tx_collide();
+    virtual void tx_collide(int slot);
     virtual void tx_success();
 
 };

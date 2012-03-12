@@ -32,7 +32,7 @@ bool PBStation::can_transmit(int slot)
  * On transmission collision, set last_tx_success to false to enable
  * probabilistic backoff for subsequent tx attempts
  */
-void PBStation::tx_collide()
+void PBStation::tx_collide(int slot)
 {
     last_tx_success = false;
 }

@@ -121,7 +121,7 @@ void Simulator::run_trial( int seed )
         } else if (transmitting.size() > 1) {
             // trasmissions collide!
             for (unsigned int i = 0; i < transmitting.size(); i++) {
-                transmitting[i]->tx_collide();
+                transmitting[i]->tx_collide(i);
             }
         }
     }
