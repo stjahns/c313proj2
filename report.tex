@@ -78,7 +78,7 @@ A potential serious weakness of TDM is that if the load is not equally balanced
 between the stations on the bus, unnecessary delays may occur, especially if only
 a single station has a very large number of frames queued for a period of many slots.
 The busy station will experience delays of $N$ slots between each frame transmitted,
-while all other slots are left unused, leaving the overall hub throughput very low and
+while all other slots are left unused, leaving the overall bus throughput very low and
 the delay unnecessarily high.
 
 \subsection*{Probabilistic Backoff} Notice that for a probability of successful
@@ -122,7 +122,7 @@ the interval before the next transmission attempt could be as long as 1024 slots
 loads on the bus, we should expect small delays as immediate transmission of a frame upon 
 generation (if the transmission queue was previously empty) or after a successful transmission
 is allowed. During progressively higher loads, the relative performance between TBEB and IB and PB in
-in terms of hub throughput and average delivery delay may be difficult to predict. 
+in terms of bus throughput and average delivery delay may be difficult to predict. 
 
 \section*{Methods}
 
@@ -146,7 +146,7 @@ simulate 5 trials where 20 stations transmit over a time period of 50,000 slots.
 The observations shown later are based on 5 trials that were seeded with values
 1, 2, 3, 4, 5, respectively.
 
-\verb|psim| functions by simulating \verb|T| independent trials of hub of
+\verb|psim| functions by simulating \verb|T| independent trials of bus of
 \verb|N| stations running for \verb|R| time slots, using the random number
 generator seeds separately specified for each trial. At the beginning of each
 timeslot, each station generates a new frame on its transmission queue with
@@ -276,7 +276,7 @@ to about 40\% for all higher loads.
 
 \begin{figure}
     \centering \includegraphics[width=8cm]{plots/fullrange_delay5000.eps}
-    \caption{Average delay per frame delivered on hub for full range of per
+    \caption{Average delay per frame delivered on bus for full range of per
     slot, per station frame generation probability, tested for each MAC
     protocol  $R=5000$ slots, $T = 5$ trials.}
     \label{fig:fullrange_delay}
@@ -284,7 +284,7 @@ to about 40\% for all higher loads.
 
 \begin{figure}
     \centering \includegraphics[width=8cm]{plots/fullrange_throughput5000.eps}
-    \caption{Average throughput on hub for full range of per
+    \caption{Average throughput on bus for full range of per
     slot, per station frame generation probability, tested for each MAC
     protocol  $R=5000$ slots, $T = 5$ trials } 
     \label{fig:fullrange_throughput}
@@ -455,7 +455,7 @@ In Figure~\ref{fig:fullrange_delay}, we also see that with sufficiently high loa
 a lower average delay than T
 
 In order to determine the relative fairness of each protocol with respect to individual stations
-competing for transmissions on the hub, we measured per trial, per station ratios of 
+competing for transmissions on the bus, we measured per trial, per station ratios of 
 undelivered frames to total frames generated at that station. For this metric, if the ratio
 is 0 at the end of the trial, all frames were successfully delivered, and if the ratio is 1, 0
 frames were successfully delivered. Simulations were run for
@@ -490,15 +490,15 @@ the $T$ protocol does not experience collisions, and so the time delay is growin
 
 $P$ performs second worst until $p$=0.013, where $B$ starts performing the worst
 
-This means that at this point, there are more collisions occuring under the $B$ protocol and increasing the
-observed time delay. This occurs because the backoff interval for $B$, i.e. 2^{collisions} is smaller than under $P$, i.e. N slots when collisions do not
+This means that at this point, there are more collisions occurring under the $B$ protocol and increasing the
+observed time delay. This occurs because the backoff interval for $B$, i.e. $2^{collisions}$ is smaller than under $P$, i.e. N slots when collisions do not
 occur too often (because frame generation is low).
 
 $I$ and $B$ perform similarly until $p$=0.012, where $B$ deviates off; at this point $I$ becomes the 
 best performer.
 
-Same reason as above, more collisions are occuring under $B$ than under $I$, bumping up the time delay. Again because
-the backoff interval depends on collisions and few collisions have occured, such that $2^{collisions} < N$.
+Same reason as above, more collisions are occurring under $B$ than under $I$, bumping up the time delay. Again because
+the backoff interval depends on collisions and few collisions have occurred, such that $2^{collisions} < N$.
 
 \emph{range: 0.01,0.021} Figure 7
 
@@ -513,7 +513,7 @@ delay should increase as $p$ grows larger.
 
 $I$ intersects with $B$ shortly after $p$=0.016 and becomes the worst performer
 
-There are more collisions occuring under $I$ at this point than under $B$, because $B$ now has 'evolved' a larger
+There are more collisions occurring under $I$ at this point than under $B$, because $B$ now has 'evolved' a larger
 backoff interval. So while frames continue to be transmitted successfully under $B$, the frames are often
 colliding under $I$ and therefore waiting longer in the station queue. Under $I$ we see that the throughput starts to decrease
 as more slots are wasted because nothing is successfully transmitted over them.
@@ -535,7 +535,7 @@ i.e. these are trends that manifested and continue from figure 7; no discussion 
 
 \emph{range: 0,1} Figure 9
 $T$ performs best until $p$=0.1 where it intersects with $B$ and performs second best after the fact
-$B$ performs best from $p$ \geq 0.1
+$B$ performs best from $p \geq 0.1$
 
 Notice in Figure 9 that at $p$=0.05, the delay for $T$ increases significantly. This is because
 $p$ = 0.05 is equal to $1/N = 1/20 = 0.05$. At this point the chance of frame generation is equal to the
@@ -629,42 +629,26 @@ stations that were luckier, as many new frames will be generated and queued
 during the extended backoff periods. Luckier stations will instead be able to transmit many
 frames almost as soon as they were generated, as a significant portion of the stations
 may be stuck waiting in an extended backoff period, leaving the channel clear.
->>>>>>> e4fee15205b09801c3d2c22197434d480f48b346
-
-%TODO: for R=5000, TBEB approaches like 0.9 something, so maybe we can extrapolate that with
-%a sufficiently large trial, the throughput will approach 1?
-%TODO - TDM delay should hypothetically spike when the per-station throughput 
-%(which should approach 1/N at sufficiently high load) is lower than the generation probability...
-%TODO -> probabalistic unfairness explanation - a couple 'lucky' stations get 
-%through early, while others keep colliding - lucky stations keep transmitting
-%, unlucky ones have large (1024) slot backoff, never get to transmit
 
 \section*{Conclusions}
 
-Rehash discussion?
+Through our simulations, we have gained insight into the relative performance of
+three different ALOHA medium access control protocols: probabilistic backoff, interval
+backoff, and truncated binary exponential backoff. We also compared the ALOHA protocols
+with the time division multiplexing protocol. Using average overall throughput on the shared
+bus and average delay from frame generation to successful delivery as performance metrics, we
+determined that the ALOHA protocols outperform the TDM protocol at low loads, but the ALOHA
+protocols are outperformed by TDM at high loads due to the presence of collisions in the 
+ALOHA protocols. Truncated binary exponential backoff is better than the other two ALOHA 
+protocols at dealing with higher loads, but at the expense of the protocol exhibiting 
+station-to-station unfairness, where some stations are able to transmit most or all of 
+their generated frames while others may not even be able to transmit half.
 
-(Under these applcations, use this protocol! Under others, use that!)
-
-%    We have observed that a transmission scheme that splits frames into multiple Hamming's 
-%    Single Bit Correction blocks can increase the scheme's resilience to higher bit rate 
-%    errors with an effect proportional to the number of correction blocks per frame used. 
-%    However, the correction comes at a price as throughput at lower than critical bit error
-%    rates is proportionally reduced with more correction blocks. Increasing the number of 
-%    correction blocks can increase the critical bit error rate where throughput collapses 
-%    to zero by 
-%    over an order of magnitude without sacrificing more than a 50\% decrease in throughput
-%    at non-critical error levels. For situations with higher feedback delays, the improvements
-%    offered by increased correction are
-%    increased slightly, but for fully pipelined transmission schemes the effect is expected 
-%    to be larger.
-
------
-NB -
-One thing to note could be limitations of our simulation - a global probability constant 
-for frame generation assumes that all stations are providing the same level of load to 
-the hub, which may not necessarily be true and could possibly have significant
-repercussions on fairness, ie if most stations are pretty quiet, but one is SUPER active,
-could it drown out the others in the various protocols in a way that is somehow unfair?
------
+One of the limitations of the conclusions drawn by our simulations is due to the fact that
+our simulation assumed equal demand for the shared channel (equal rates of frame generation)
+for each station on the bus. This could potentially have repercussions on fairness and 
+efficiency, especially in cases where only one station has a very large number of frames 
+to transmit while others have relatively few. This could lead to unused potential throughput
+for TDM protocols, or drowning or starvation of stations in the competitive ALOHA protocols.
 
 \end{document}
