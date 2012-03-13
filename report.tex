@@ -335,6 +335,8 @@ $p$ values resulted in at least polynomially higher simulation run times as the 
 became heavier loaded), we did not see a point where TBEB throughput levels off. Running
 the simulator under the same conditions as before but with \verb|R=1000| and \verb|p| ranging
 from 0 to 1, TBEB throughput appears to increase steadily until about 78\% at about $p = 0.5$
+TODO: for R=5000, TBEB approaches like 0.9 something, so maybe we can extrapolate that with
+a sufficiently large trial, the throughput will approach 1?
 
 TODO figure
 TODO!!! Running with R=1000 shows TDM delay jumping after t=0.1 to above that of TBEB...
@@ -342,8 +344,23 @@ TODO!!! Running with R=1000 shows TDM delay jumping after t=0.1 to above that of
 TODO - TDM delay should hypothetically spike when the per-station throughput 
 (which should approach 1/N at sufficiently high load) is lower than the generation probability...
 
+TODO Large load TBEB delay looks to be about half that of all the others... Also error increases
+with higher load -- somehow related to unfairness?
+
 TODO make distinction between Average Throughput used in most plots vs average per-station 
 throughput
+
+TODO - unfairness -> look at ratio of undelivered/total generated frames at very high load
+                     for TBEB -> looks like some stations get to deliver most frames while others
+                     might not get any through on some trials....
+
+                     -> probabalistic unfairness explanation - a couple 'lucky' stations get 
+                     through early, while others keep colliding - lucky stations keep transmitting
+                     , unlucky ones have large (1024) slot backoff, never get to transmit
+
+     -> Plot/Figure -> Maybe just a table of undelivered/genrated ratios for station and trial
+                        -> point out that on some trials, some stations have ~1, others are as 
+                        low as 0.3
 
 
 Describe results TODO: tables of undelivered/generated
