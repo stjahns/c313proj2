@@ -23,6 +23,7 @@ public:
     virtual void tx_collide(int slot) = 0; // called when collision detected, protocol-specific imp
     void generate_frame(); // generate a frame to add to queue with prob. gen_prob
     virtual void tx_success(); // successful tx removes frame from tx queue
+    void increment_delays(); // call this on every timeslot
 
 	struct stats {
         int delivered_frames;

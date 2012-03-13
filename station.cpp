@@ -1,6 +1,8 @@
 #include <cstdlib>
 #include <iostream>
 
+using namespace std;
+
 #include "station.h"
 
 Station::Station(int id, double p)
@@ -32,19 +34,17 @@ void Station::tx_success()
     tx_queue--;
     current_stats.delivered_frames++;
 
-    // increment delays for each queued frame
-    for (unsigned int i = 0; i < current_stats.delay.size(); i++) {
-    	current_stats.delay.at(i)++;
-    }
-
     current_stats.total_delay += current_stats.delay.front();
-    //cout << "ID: " << id << " TOTAL: " << current_stats.total_delay << endl;
     current_stats.delay.pop_front();
 
 }
 
 // successful tx removes frame from tx queue
 void Station::tx_collide(int slot)
+{
+}
+
+void Station::increment_delays()
 {
     // increment delays for each queued frame
 	for (unsigned int i = 0; i < current_stats.delay.size(); i++)

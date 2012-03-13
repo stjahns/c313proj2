@@ -127,6 +127,8 @@ void Simulator::run_trial(unsigned int trial, int seed )
             // probabilistically generate a frame to tx 
             station->generate_frame();
                   
+            station->increment_delays();
+
             // determine if station should transmit or not - POLYMORPHISM YO
             if (station->can_transmit(slot)) {
                 // add to vector of currently transmitting stations
@@ -143,7 +145,7 @@ void Simulator::run_trial(unsigned int trial, int seed )
         } else if (transmitting.size() > 1) {
             // trasmissions collide!
             for (unsigned int i = 0; i < transmitting.size(); i++) {
-                transmitting[i]->tx_collide(i);
+                transmitting[i]->tx_collide(slot);
             }
         }
     }

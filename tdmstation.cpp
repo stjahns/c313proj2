@@ -1,4 +1,7 @@
 #include "tdmstation.h"
+#include <iostream>
+
+using namespace std;
 
 TDMStation::TDMStation(int id, double p, int total_slots) : Station(id, p)
 {
@@ -13,10 +16,13 @@ TDMStation::TDMStation(int id, double p, int total_slots) : Station(id, p)
  */
 bool TDMStation::can_transmit(int slot)
 {
-    if ( (slot % total_slots) == assigned_slot && this->tx_queue > 0 )
+    if ( (slot % total_slots) == assigned_slot && this->tx_queue > 0 ) {
+        //cout << (slot % total_slots) << endl;
         return true;
-    else
+
+    } else {
         return false;
+    }
 }
 
 void TDMStation::tx_collide(int slot)
