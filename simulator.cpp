@@ -220,7 +220,6 @@ void Simulator::print_overall_stats()
 
 /***********************************************************************
  * Print statistics for a single station over all the trials
- * TODO all on one line!
  * - Station number
  * - CI for throughput
  * - CI for delay
