@@ -143,7 +143,7 @@ void Simulator::run_trial(unsigned int trial, int seed )
         } else if (transmitting.size() > 1) {
             // trasmissions collide!
             for (unsigned int i = 0; i < transmitting.size(); i++) {
-                transmitting[i]->tx_collide(i);
+                transmitting[i]->tx_collide(slot);
             }
         }
     }
@@ -245,11 +245,11 @@ void Simulator::print_station_stats(int id)
                       / (double)(num_slots * num_trials); // average throughput
 
     double mean_delay;
-    if (total_frames_delivered > 0)
+    //if (total_frames_delivered > 0)
     	mean_delay = ((double)total_delay
                  / (double)total_frames_delivered)/all_stations.size(); // average delay per frame delivered
-    else
-    	mean_throughput = 0;
+    //else
+    	//mean_delay = 0;
 
     // calculate MSE for throughput and delay
     double mse_throughput = 0;
