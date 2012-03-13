@@ -1,7 +1,7 @@
 \documentclass[twocolumn]{article}
 \usepackage[letterpaper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage{graphicx}
-\usepackage{estopdf}
+%\usepackage{estopdf}
 \usepackage{verbatim}
 \usepackage{listings}
 \begin{document}
@@ -31,33 +31,83 @@ columns=flexible                        % Column format
 
 \section*{Introduction}
 
-	Choosing an appropriate backoff strategy for the Slotted ALOHA MAC layer protocol depends on a series of factors. In this report, we have simulated the Probabilistic Backoff ($P$), Interval-Based Backoff ($I$), and Truncated Binary Exponential Backoff ($B$) strategies. In addition, we have simulated the Time Division Multiplexing ($T$) protocol for additional comparison. Our simulation was based on several assumptions found in the problem specification and on a terse description of each protocol:
+	Choosing an appropriate backoff strategy for the Slotted ALOHA MAC layer
+	protocol depends on a series of factors. In this report, we have
+	simulated the Probabilistic Backoff ($P$), Interval-Based Backoff ($I$),
+	and Truncated Binary Exponential Backoff ($B$) strategies. In addition,
+	we have simulated the Time Division Multiplexing ($T$) protocol for
+	additional comparison. Our simulation was based on several assumptions
+	found in the problem specification and on a terse description of each
+	protocol:
 
-$T$: a station $i$ only transmits at slot number $mN + i$, $m$ = 0, 1, 2, ... $N$, where $m$ is the cycle number, and $N$ is the number of stations
+$T$: a station $i$ only transmits at slot number $mN + i$, $m$ = 0, 1, 2, ...
+$N$, where $m$ is the cycle number, and $N$ is the number of stations
 
-$P$: a station will try to transmit immediately on generation, or retransmit with $1/N$ probability at each subsequent slot
+$P$: a station will try to transmit immediately on generation, or retransmit
+with $1/N$ probability at each subsequent slot
 
-$I$: a station will try to transmit immediately on generation, or retransmit at a slot 1 to $N$ slots later, chosen randomly
+$I$: a station will try to transmit immediately on generation, or retransmit at
+a slot 1 to $N$ slots later, chosen randomly
 
-$B$: a station will try to transmit immediately on generation, or retransmit at a slot 1 to 2 slots later, then 1 to 4 slots later, or eventually 1 to $2^i$ slots later, chosen randomly until the frame successfully transmits
+$B$: a station will try to transmit immediately on generation, or retransmit at
+a slot 1 to 2 slots later, then 1 to 4 slots later, or eventually 1 to $2^i$
+slots later, chosen randomly until the frame successfully transmits
 
-	To set some groundwork, we will begin by outlining our expectations with a preliminary analysis. Next we will briefly explain the main functionality and design of our PSIM simulator. Then we will reveal the simulation results with the help of some tables and graphs, paired with the parameters we used to generate the media. Finally, we will examine each protocol's performance by analyzing their average throughputs and the overall average per-frame slot time delays of the successfuly transmitted frames. In addition, we will examine the fairness of each protocol by observing the number of undelivered frames under each protocol at the individual stations.
+	To set some groundwork, we will begin by outlining our expectations with
+	a preliminary analysis. Next we will briefly explain the main
+	functionality and design of our \verb|psim| simulator. Then we will reveal the
+	simulation results with the help of some tables and graphs, paired with
+	the parameters we used to generate the media. Finally, we will examine
+	each protocol's performance by analyzing their average throughputs and
+	the overall average per-frame slot time delays of the successfully
+	transmitted frames. In addition, we will examine the fairness of each
+	protocol by observing the number of undelivered frames under each
+	protocol at the individual stations.
 
-	PSIM accepts several parameters into std:in: 
+%	PSIM requires several parameters at the command line:
+%
+%\begin{center} Protocol N p R T seed1 seed2 ... seedT \end{center}
+%
+%The Protocol can taken on a value of '$T$', '$P$', '$I$', or '$B$', depending on
+%what protocol is being simulated. The parameter $N$ represents the number of
+%stations that will be transmitting under the protocol. $p$ represents the
+%probability that a frame will be generated at each station. $R$ represents the
+%number of slots that the experiment will run, and is therefore the time-measure
+%for the experiment. And $T$ represents the number of trials the simulation will
+%run, while the following $seed1...seedT$ inputs are used to reseed the
+%randomization functions for each trial. For the purpose of this simulation, the
+%values $N$=20, $R$=50,000, and $T$=5 will be fixed. In other words, we will
+%simulate 5 trials where 20 stations transmit over a time period of 50,000 slots.
+%The observations shown later are based on 5 trials that were seeded with values
+%1, 2, 3, 4, 5, respectively.
 
-\begin{center} Protocol N p R T seed1 seed2 ... seedT \end{center}
-\\
+\subsection*{Time Division Multiplexing} Here we expect that as the probability
+of frame generation, $p$, increases, the average frame delay should increase. This is
+because in any given cycle of $N$ slots, the probability of a frame being
+generated at that slot increases. Therefore as $p$ increases, up to $N$ frames
+might be generated in a cycle.  On the other hand, the mean throughput should
+increase in direct proportion to $p$. As $p$ increases, it is more likely frames
+will be available for transmission in a given cycle. In other words, it is more
+likely a station will not waste its designated slot time. Furthermore, since
+each station has a designated slot only it can transmit on, it is not possible
+for collisions to occur between the stations.
 
-The Protocol can taken on a value of '$T$', '$P$', '$I$', or '$B$', depending on what protocol is being simulated. The parameter $N$ represents the number of stations that will be transmitting under the protocol. $p$ represents the probability that a frame will be generated at each station. $R$ represents the number of slots that the experiment will run, and is therefore the time-measure for the experiment. And $T$ represents the number of trials the simulation will run, while the following $seed1...seedT$ inputs are used to reseed the randomization functions for each trial. For the purpose of this simulation, the values $N$=20, $R$=50,000, and $T$=5 will be fixed. In other words, we will simulate 5 trials where 20 stations transmit over a time period of 50,000 slots. The observations shown later are based on 5 trials that were seeded with values 1, 2, 3, 4, 5, respectively.
-	
-\subsection{Time Division Multiplexing}
-Here we expect that as the probability of frame generation increases, the average frame delay should increase. This is because in any given cycle of $N$ slots, the probability of a frame being generated at that slot increases. Therefore as $p$ increases, up to $N$ frames might be generated in a cycle.
-On the other hand, the mean throughput should increase in direct proportion to $p$. As $p$ increases, it is more likely frames will be available for transmission in a given cycle. In other words, it is more likely a station will not waste its designated slot time. Furthermore, since each station has a designated slot only it can transmit on, it is not possible for collisions to occur between the stations.
+\subsection*{Probabilistic Backoff} Notice that for a probability of successful
+transmission of $1/N$, we need $N$ stations to each have a frame queued for
+transmission, in order for one to \emph{likely} transmit. We can build on this
+observation and hypothesize that at some $p$, every station will be generating
+frames faster than it can transmit them. And therefore, the throughput will
+level off in concert with the probability that \emph{exactly one} station
+transmits, i.e. let event $ExactlyOneTx$ represent the case where exactly one
+station is transmitting. Thus, when $N$=20 stations, $Prob(ExactlyOneTx)$ =
+$C(20,1)\times(1/20)\times(19/20)^{19}$ = 0.377. For 20 stations, it is likely
+then that when $p=0.377/20=0.019$, we can expect the throughput to begin
+leveling off and for the average frame delay to start increasing. This is
+because as $p$ increases, frames are more likely to generate, while the
+throughput remains the same. And so, the queue can only get larger thus each
+frame must wait longer before moving to the front of the queue for transmission.
 
-\subsection{Probabilistic Backoff}
-Notice that for a probability of successful transmition of $1/N$, we need $N$ stations to each have a frame queued for transmission, in order for one to \emph{likely} transmit. We can build on this observation and hypothesize that at some $p$, every station will be generating frames faster than it can transmit them. And therefore, the throughput will level off in concert with the probability that \emph{exactly one} station transmits, i.e. let event $ExactlyOneTx$ represent the case where exactly one station is transmitting. Thus, when $N$=20 stations, $Prob(ExactlyOneTx)$ = $C(20,1)\times(1/20)\times(19/20)^{19}$ = 0.377. For 20 stations, it is likely then that when $p=0.377/20=0.019$, we can expect the throughput to begin leveling off and for the average frame delay to start increasing. This is because as $p$ increases, frames are more likely to generate, while the throughput remains the same. And so, the queue can only get larger thus each frame must wait longer before moving to the front of the queue for transmission.
-
-\subsection{Interval-Based Backoff}
+\subsection*{Interval-Based Backoff}
 
 
     %In this report, we analyze the effect of various degrees of error correction on data 
@@ -89,15 +139,55 @@ Notice that for a probability of successful transmition of $1/N$, we need $N$ st
 
 \section*{Methods}
 
-    Program design
-        - Methods, classes
+The \verb|psim| simulator was implemented in C++. It requires several parameters
+at the command line:
 
-    Calling the simulator - what do cmdline args mean?
+\begin{center}\verb|psim Protocol N p R T seed1 seed2 ... seedT|\end{center}
 
-    BASH scripts to automate simulation
-    Plot with gnuplot
+ \verb|Protocol| can taken on a value of \verb|T|, \verb|P|, \verb|I|, or \verb|B|, depending on
+what protocol is being simulated. The parameter \verb|N| represents the number of
+stations that will be transmitting under the protocol. \verb|p| represents the
+probability that a frame will be generated at each station. \verb|R| represents the
+number of slots that the experiment will run, and is therefore the time-measure
+for the experiment. And \verb|T| represents the number of trials the simulation will
+run, while the following \verb|seed1...seedT| inputs are used to reseed the
+randomization functions for each trial. 
 
-    What simulations run - range of p, for each protocol
+For the purpose of this simulation, the
+values \verb|N=20|, \verb|R=50000|, and \verb|T=5| will be fixed. In other words, we will
+simulate 5 trials where 20 stations transmit over a time period of 50,000 slots.
+The observations shown later are based on 5 trials that were seeded with values
+1, 2, 3, 4, 5, respectively.
+
+\verb|psim| functions by simulating \verb|T| independent trials of hub of
+\verb|N| stations running for \verb|R| time slots, using the random number
+generator seeds separately specified for each trial. At the beginning of each
+timeslot, each station generates a new frame on its transmission queue with
+probability \verb|p|. Then, the delay value in time slots is incremented for
+each frame on each stations transmission queue.  Then, the simulator determines
+which and how many stations will attempt transmission in that timeslot,
+according to the MAC protocol specified in \verb|Protocol|. If there is only one
+station attempting transmission, the transmission is deemed successful and the
+frame is removed from that station's queue. If there are more than one
+transmissions, a \verb|tx_collide(slot)| method is executed on each station that
+partly implements the station's backoff protocol as specified in
+\verb|Protocol|.
+
+The simulator outputs the parameters (minus the seeds) on the first line. After
+running all trials, it calculates and prints 95\% confidence intervals for the
+overall average throughput in frames delivered per time slot, and delay in slots
+for each frame successfully delivered, on lines 2 and 3 respectively. Confidence
+intervals were calculated using appropriate t-statistics for the number of
+trials from a file labelled \verb|tvalues.dat|. Per-station statistics were output
+on the remaining lines, where each line started with \verb|nN|, the id of the station,
+followed by confidence intervals for throughput and delay per frame delivered, and finally
+the ratio of undelivered frames to total frames generated by that station for each trial 
+separately, all on the same line.
+
+Experiments were automated using the BASH script \verb|make_plot.sh| 
+to run the simulator for each protocol over ranges of \verb|p| values ranging
+from 0.00 up to 0.04. The scripts parsed data from the output into appropriately
+formatted data files that were sent to GNUPLOT for plotting.
 
     
    % The simulator program \verb|esim| was implemented in C++, and is called with:
@@ -143,63 +233,65 @@ Notice that for a probability of successful transmition of $1/N$, we need $N$ st
 
 \section*{Results}
 
-Describe results
-TODO: tables of undelivered/generated
+Describe results TODO: tables of undelivered/generated
 
 
 \begin{figure}
-    \centering
-    \includegraphics[width=8cm]{plots/delay_big.eps}
-    \caption{\footnotesize  Average delay per frame under each protocol for $p$:(0,0.04; @0.005 increments). Used to illustrate what happens as $p$ nears 0.04.}
-    \label{fig:delay_big}
+    \centering \includegraphics[width=8cm]{plots/delay_big.eps}
+    \caption{\footnotesize  Average delay per frame under each protocol for
+    $p$:(0,0.04; @0.005 increments). Used to illustrate what happens as $p$
+    nears 0.04.} \label{fig:delay_big}
 \end{figure}
 
 \begin{figure}
-    \centering
-    \includegraphics[width=8cm]{plots/throughput_big.eps}
-    \caption{\footnotesize Mean throughput of all stations under each protocol for $p$:(0,0.04; @0.005 increments). Used to illustrate what happens as $p$ nears 0.04.}
-    \label{fig:throughput_big}
+    \centering \includegraphics[width=8cm]{plots/throughput_big.eps}
+    \caption{\footnotesize Mean throughput of all stations under each protocol
+    for $p$:(0,0.04; @0.005 increments). Used to illustrate what happens as $p$
+    nears 0.04.} \label{fig:throughput_big}
 \end{figure}
 
 \begin{figure}
-    \centering
-    \includegraphics[width=8cm]{plots/small_delay.eps}
-    \caption{\footnotesize Average delay per frame under each protocol for $p$:(0,0.015; @0.001 increments). Used to illustrate what happens as $p$ nears 0.}
-    \label{fig:delay_small}
+    \centering \includegraphics[width=8cm]{plots/small_delay.eps}
+    \caption{\footnotesize Average delay per frame under each protocol for
+    $p$:(0,0.015; @0.001 increments). Used to illustrate what happens as $p$
+    nears 0.} \label{fig:delay_small}
 \end{figure}
 
 \begin{figure}
-    \centering
-    \includegraphics[width=8cm]{plots/small_throughput.eps}
-    \caption{\footnotesize Mean throughput of all stations under each protocol for $p$:(0,0.015; @0.001 increments). Used to illustrate what happens as $p$ nears 0.}
-    \label{fig:throughput_small}
+    \centering \includegraphics[width=8cm]{plots/small_throughput.eps}
+    \caption{\footnotesize Mean throughput of all stations under each protocol
+    for $p$:(0,0.015; @0.001 increments). Used to illustrate what happens as $p$
+    nears 0.} \label{fig:throughput_small}
 \end{figure}
 
 \begin{figure}
-    \centering
-    \includegraphics[width=8cm]{plots/ib_diverge_delay.eps}
-    \caption{\footnotesize Average delay per frame under each protocol for $p$:(0,0.02; @0.001 increments). Used to illustrate where protocols begin to diverge significantly. Especially, protocol $I$ at $p$=0.015.}
+    \centering \includegraphics[width=8cm]{plots/ib_diverge_delay.eps}
+    \caption{\footnotesize Average delay per frame under each protocol for
+    $p$:(0,0.02; @0.001 increments). Used to illustrate where protocols begin to
+    diverge significantly. Especially, protocol $I$ at $p$=0.015.}
     \label{fig:delay_ib}
 \end{figure}
 
 \begin{figure}
-    \centering
-    \includegraphics[width=8cm]{plots/ib_diverge_throughput.eps}
-    \caption{\footnotesize Mean throughput of all stations under each protocol for $p$:(0,0.02; @0.001 increments). Used to illustrate where protocols begin to diverge significantly. Especially, protocol $I$ at $p$=0.016.}
+    \centering \includegraphics[width=8cm]{plots/ib_diverge_throughput.eps}
+    \caption{\footnotesize Mean throughput of all stations under each protocol
+    for $p$:(0,0.02; @0.001 increments). Used to illustrate where protocols
+    begin to diverge significantly. Especially, protocol $I$ at $p$=0.016.}
     \label{fig:throughput_ib}
 \end{figure}
 
 \begin{figure}
-    \centering
-    \includegraphics[width=8cm]{plots/tpbi_delay.eps}
-    \caption{\footnotesize Average delay per frame under each protocol for $p$:(0.01,0.021; @0.001 increments). Used to illustrate the points where the protocols intersect.}
-    \label{fig:delay_diverging}
+    \centering \includegraphics[width=8cm]{plots/tpbi_delay.eps}
+    \caption{\footnotesize Average delay per frame under each protocol for
+    $p$:(0.01,0.021; @0.001 increments). Used to illustrate the points where the
+    protocols intersect.} \label{fig:delay_diverging}
 \end{figure}
 
 \begin{figure}
-    \centering
-    \includegraphics[width=8cm]{plots/tpbi_throughput.eps}
-    \caption{\footnotesize Mean throughput of all stations under each protocol for $p$:(0.01,0.021; @0.001 increments). Used to illustrate the points where the throughput for protocols $I$ and $P$ begins to level off.}
+    \centering \includegraphics[width=8cm]{plots/tpbi_throughput.eps}
+    \caption{\footnotesize Mean throughput of all stations under each protocol
+    for $p$:(0.01,0.021; @0.001 increments). Used to illustrate the points where
+    the throughput for protocols $I$ and $P$ begins to level off.}
     \label{fig:throughput_diverging}
 \end{figure}
 
@@ -273,6 +365,15 @@ TODO: tables of undelivered/generated
 \section*{Discussion}
 
 Explain results, contrast with expectations
+
+-----
+NB -
+One thing to note could be limitations of our simulation - a global probability constant 
+for frame generation assumes that all stations are providing the same level of load to 
+the hub, which may not necessarily be true and could possibly have significant
+repercussions on fairness, ie if most stations are pretty quiet, but one is SUPER active,
+could it drown out the others in the various protocols in a way that is somehow unfair?
+-----
 
 %    When looking to maximize throughput, the most appropriate value for $K$, where $K$ 
 %    is the number of error correction blocks,
