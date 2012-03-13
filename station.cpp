@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <deque>
 
 using namespace std;
 
@@ -46,8 +47,12 @@ void Station::tx_collide(int slot)
 
 void Station::increment_delays()
 {
+
     // increment delays for each queued frame
-	for (unsigned int i = 0; i < current_stats.delay.size(); i++) {
-	    	current_stats.delay.at(i)++;
-	}
+    deque<int>::iterator it;
+    for (it = current_stats.delay.begin(); it < current_stats.delay.end(); it++) {
+            (*it)++;
+    }
+
+
 }
