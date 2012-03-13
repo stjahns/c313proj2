@@ -73,7 +73,13 @@ increase in direct proportion to $p$. As $p$ increases, it is more likely frames
 will be available for transmission in a given cycle. In other words, it is more
 likely a station will not waste its designated slot time. Furthermore, since
 each station has a designated slot only it can transmit on, it is not possible
-for collisions to occur between the stations.
+for collisions to occur between the stations. 
+A potential serious weakness of TDM is that if the load is not equally balanced 
+between the stations on the bus, unnecessary delays may occur, especially if only
+a single station has a very large number of frames queued for a period of many slots.
+The busy station will experience delays of $N$ slots between each frame transmitted,
+while all other slots are left unused, leaving the overall hub throughput very low and
+the delay unnecessarily high.
 
 \subsection*{Probabilistic Backoff} Notice that for a probability of successful
 transmission of $1/N$, we need $N$ stations to each have a frame queued for
@@ -107,6 +113,16 @@ At this point however, the throughput will will level out and the average frame 
 as $p$ increases.
 
 \subsection*{Truncated Binary Exponential Backoff}
+
+Truncated binary exponential backoff is more or less a fancy version of interval backoff 
+where instead of a fixed interval size of $N$ slots to randomly backoff for, the interval
+starts at 4 slots and doubles at every collision until 1024. Due to this property, if a
+single station has at least 9 consecutive transmission attempts with collision, 
+the interval before the next transmission attempt could be as long as 1024 slots. During low
+loads on the bus, we should expect small delays as immediate transmission of a frame upon 
+generation (if the transmission queue was previously empty) or after a successful transmission
+is allowed. During progressively higher loads, the relative performance between TBEB and IB and PB in
+in terms of hub throughput and average delivery delay may be difficult to predict. 
 
 \section*{Methods}
 
