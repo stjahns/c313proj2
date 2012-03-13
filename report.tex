@@ -293,6 +293,44 @@ to about 40\% for all higher loads.
 \begin{table*}
     \centering 
 %B 20 0.040000 50000 5 1 2 3 4 5
+    \label{fig:fairness_tdm}
+    \begin{tabular}{l|c|c|c|c|c}
+           & 1 & 2 & 3 & 4 & 5 \\
+        \hline
+        n1 & 0.006471 & 0.000503 & 0.000989 & 0.000505 & 0.001422 \\
+        n2 & 0.000987 & 0.002000 & 0.002017 & 0.002999 & 0.001004 \\
+        n3 & 0.000501 & 0.001001 & 0.000988 & 0.001035 & 0.000000 \\
+        n4 & 0.000000 & 0.000501 & 0.000985 & 0.000481 & 0.000000 \\
+        n5 & 0.000000 & 0.000489 & 0.000985 & 0.000986 & 0.000000 \\
+        n6 & 0.000000 & 0.000517 & 0.000000 & 0.000000 & 0.001496 \\
+        n7 & 0.002455 & 0.002026 & 0.000000 & 0.001485 & 0.000484 \\
+        n8 & 0.001047 & 0.000000 & 0.000000 & 0.000000 & 0.002499 \\
+        n9 & 0.000000 & 0.000000 & 0.002534 & 0.003348 & 0.000000 \\
+       n10 & 0.000000 & 0.001004 & 0.000991 & 0.000000 & 0.001492 \\
+       n11 & 0.000000 & 0.000495 & 0.003854 & 0.001487 & 0.001453 \\
+       n12 & 0.001505 & 0.001004 & 0.002004 & 0.001037 & 0.000000 \\
+       n13 & 0.002463 & 0.000000 & 0.003085 & 0.000000 & 0.000513 \\
+       n14 & 0.002552 & 0.001035 & 0.000503 & 0.004805 & 0.003038 \\
+       n15 & 0.002014 & 0.000000 & 0.001000 & 0.000490 & 0.002535 \\
+       n16 & 0.000000 & 0.000496 & 0.001001 & 0.000506 & 0.000000 \\
+       n17 & 0.000000 & 0.000514 & 0.004460 & 0.001044 & 0.000978 \\
+       n18 & 0.000000 & 0.000499 & 0.001999 & 0.000000 & 0.000512 \\
+       n19 & 0.000000 & 0.003044 & 0.000986 & 0.000000 & 0.002092 \\
+       n20 & 0.000501 & 0.000507 & 0.000000 & 0.000494 & 0.000504
+
+    \end{tabular}
+%B 20 0.040000 50000 5 1 2 3 4 5
+%0.696424 0.691729 0.701119
+%4558.648255 4053.037562 5064.258947
+    \caption{ Ratios of undelivered to total generated frames, per station, per trial using
+        time division multiplexing, $p=0.04$, $R=50000$ slots, $T = 5$ trials.  
+        Each column corresponds to a single trial, each row corresponds to a single station. }
+
+\end{table*}
+
+\begin{table*}
+    \centering 
+%B 20 0.040000 50000 5 1 2 3 4 5
     \label{fig:fairness_pb}
     \begin{tabular}{l|c|c|c|c|c}
            & 1 & 2 & 3 & 4 & 5 \\
@@ -322,8 +360,48 @@ to about 40\% for all higher loads.
 %0.696424 0.691729 0.701119
 %4558.648255 4053.037562 5064.258947
     \caption{ Ratios of undelivered to total generated frames, per station, per trial using
-       probabilistic backoff, $R=50000$ slots, $T = 5$ trials.
+       probabilistic backoff, $p=0.04$, $R=50000$ slots, $T = 5$ trials.
     Each column corresponds to a single trial, each row corresponds to a single station. }
+
+\end{table*}
+
+\begin{table*}
+    \centering 
+%B 20 0.040000 50000 5 1 2 3 4 5
+    \label{fig:fairness_ib}
+    \begin{tabular}{l|c|c|c|c|c}
+           & 1 & 2 & 3 & 4 & 5 \\
+        \hline
+
+        n1 & 0.682902 & 0.686082 & 0.700204 & 0.690148 & 0.673203 \\
+        n2 & 0.679692 & 0.689398 & 0.697190 & 0.661972 & 0.675635 \\
+        n3 & 0.716981 & 0.682341 & 0.659226 & 0.673226 & 0.666492 \\
+        n4 & 0.713648 & 0.716935 & 0.692615 & 0.673288 & 0.685700 \\
+        n5 & 0.677587 & 0.694077 & 0.702149 & 0.672148 & 0.694153 \\
+        n6 & 0.688391 & 0.706201 & 0.702863 & 0.679980 & 0.655243 \\
+        n7 & 0.658811 & 0.664447 & 0.666136 & 0.721930 & 0.687562 \\
+        n8 & 0.671120 & 0.683063 & 0.664175 & 0.705179 & 0.707486 \\
+        n9 & 0.691258 & 0.666667 & 0.675761 & 0.691448 & 0.709483 \\
+       n10 & 0.691358 & 0.669888 & 0.666159 & 0.695152 & 0.701021 \\
+       n11 & 0.686657 & 0.681751 & 0.690379 & 0.676530 & 0.679303 \\
+       n12 & 0.689154 & 0.651744 & 0.681750 & 0.700640 & 0.704902 \\
+       n13 & 0.715681 & 0.692882 & 0.686462 & 0.690809 & 0.677016 \\
+       n14 & 0.680972 & 0.706897 & 0.681089 & 0.699294 & 0.698234 \\
+       n15 & 0.686216 & 0.662398 & 0.699356 & 0.691370 & 0.658612 \\
+       n16 & 0.682927 & 0.714427 & 0.695309 & 0.712512 & 0.700500 \\
+       n17 & 0.647456 & 0.703210 & 0.685269 & 0.705513 & 0.722195 \\
+       n18 & 0.670229 & 0.667469 & 0.682620 & 0.694542 & 0.698836 \\
+       n19 & 0.698437 & 0.688623 & 0.689368 & 0.699150 & 0.673657 \\
+       n20 & 0.672286 & 0.701729 & 0.689209 & 0.674254 & 0.662021
+
+
+    \end{tabular}
+%B 20 0.040000 50000 5 1 2 3 4 5
+%0.696424 0.691729 0.701119
+%4558.648255 4053.037562 5064.258947
+    \caption{ Ratios of undelivered to total generated frames, per station, per trial using
+        interval backoff, $p=0.04$, $R=50000$ slots, $T = 5$ trials.  
+        Each column corresponds to a single trial, each row corresponds to a single station. }
 
 \end{table*}
 
@@ -359,7 +437,7 @@ n20 & 0.118554 & 0.331832 & 0.097561 & 0.129732 & 0.238192
 %0.696424 0.691729 0.701119
 %4558.648255 4053.037562 5064.258947
     \caption{ Ratios of undelivered to total generated frames, per station, per trial using
-        truncated binary exponential backoff, $R=50000$ slots, $T = 5$ trials.  
+        truncated binary exponential backoff, $p=0.04$, $R=50000$ slots, $T = 5$ trials.  
         Each column corresponds to a single trial, each row corresponds to a single station. }
 
 \end{table*}
@@ -381,10 +459,12 @@ competing for transmissions on the hub, we measured per trial, per station ratio
 undelivered frames to total frames generated at that station. For this metric, if the ratio
 is 0 at the end of the trial, all frames were successfully delivered, and if the ratio is 1, 0
 frames were successfully delivered. Simulations were run for
-each of the protocols, and results for interval backoff and truncated binary exponential
-backoff protocols are listed in Tables 1 and 2, respectively. Similar results for interval
-backoff were observed as for probabilistic backoff. In Table 1, for PB we see that the
-ratios for each station never stray below 0.45 or above 0.6 within a trial. In Table 2,
+each of the protocols, and results 
+backoff protocols are listed in Tables 1 - 4 . In Table 1, the ratios do not grow much larger 
+than one for any station on any trial, meaning that all stations were able to transmit
+nearly all their frames by the end of the trial. In Table 2, for PB we see that the
+ratios for each station never stray below 0.45 or above 0.6 within a trial. Table 3 shows
+similar results for interval backoff. In Table 4,
 within a single trial, the ratios for each station range from 0 (all generated frames 
 successfully delivered) to 0.43 (nearly half of all frames unsuccessfully delivered, left
 in queue at end of trial).
@@ -402,12 +482,58 @@ strategies we see protocols performed from better to worst in order $B$, $P$, $I
 frame generation rate the Interval Based protocol performed the worst, with the average frame
 waiting around 17,000 time slots before transmitting.
 
-
 \subsection*{Throughput}
 
-\subsection*{Fairness} In order to 
+\subsection*{Fairness} 
 
-Explain results, contrast with expectations
+In our simulation, the rate of frame generation for each station is equal, so there is
+equal demand for the channel from all stations. Therefore, a fair MAC protocol should provide
+approximately equal access to each station over the course of a single trial (if a trial is
+sufficiently long). In order to quantify this, we recorded the ratio of undelivered frames
+to total generated frames for each station for each trial run by the simulator. If each station
+is given fair access to the channel, these ratios should be approximately for each station. For
+time division multiplexing, probabilistic backoff, and interval backoff, this is what we 
+observed (Table 1).
+
+Time division multiplexing is by its definition clearly a fair protocol, as each station is 
+granted exactly equal access to the channel in the form of its unique assigned slot. No 
+collisions are possible. This assertion is backed up by our observation in Table 1 that 
+all stations were able to transmit nearly all their frames by the end of each trial. The 
+stations that did not transmit all of them likely had generated the frames soon before the 
+end and had not yet had time to empty their queue.
+
+Probabilistic backoff was also observed to be a fair protocol, in Table 2 we see all the 
+ratios hovering in a reasonably small interval between 0.45 and 0.6, meaning that all stations
+were able to successfully transmit approximately half their generated frames by the end of each
+trial. The fairness in PB is due how the backoff procedure has no memory; after a collision,
+each consecutive step is evaluated independently for retransmission with a probability of 
+$\frac{1}{N}$. There is no means by which one station could gain some sort of advantage over
+another, and there is no period of slots in which a station is not probabilistically considered
+for retransmission.
+
+Similar results to probabilistic backoff were observed for interval backoff in Table 3, only 
+with what appears to be a higher average of undelivered frames ratios over all stations. With
+the number of stations as used in our experiments ($N=20$), IB is fair because
+after a collision, the maximum interval in slots before the next transmission
+attempt by that station is the number of stations on the bus. This backoff period is 
+small enough that does not appear to significantly disadvantage a station after a transmission;
+its not long enough for luckier stations to 'race ahead' and deliver a bunch of frames in 
+quick succession during that backoff period.
+
+However, for truncated binary exponential backoff, considerable differences
+between the end of trail ratios of undelivered frames to total generated frames
+were observed between stations (Table 4). For instance, in trial 3, stations n4,
+n12, and n14 were able to transmit all of their generated frames, but stations
+n1, n11, and n16 all had over 40\% of their generated frames remaining
+untransmitted on the queue at the end of the trial. This can be exponential
+growth of the backoff period when multiple successive collisions are experienced
+by a station; after 9 collisions the backoff interval between attempts can be as
+large as 1024 slots. If a station is unlucky enough to sustain so many
+collisions, it will be put at a serious disadvantage as compared to other
+stations that were luckier, as many new frames will be generated and queued
+during the extended backoff periods. Luckier stations will instead be able to transmit many
+frames almost as soon as they were generated, as a significant portion of the stations
+may be stuck waiting in an extended backoff period, leaving the channel clear.
 
 %TODO: for R=5000, TBEB approaches like 0.9 something, so maybe we can extrapolate that with
 %a sufficiently large trial, the throughput will approach 1?
@@ -416,14 +542,6 @@ Explain results, contrast with expectations
 %TODO -> probabalistic unfairness explanation - a couple 'lucky' stations get 
 %through early, while others keep colliding - lucky stations keep transmitting
 %, unlucky ones have large (1024) slot backoff, never get to transmit
------
-NB -
-One thing to note could be limitations of our simulation - a global probability constant 
-for frame generation assumes that all stations are providing the same level of load to 
-the hub, which may not necessarily be true and could possibly have significant
-repercussions on fairness, ie if most stations are pretty quiet, but one is SUPER active,
-could it drown out the others in the various protocols in a way that is somehow unfair?
------
 
 \section*{Conclusions}
 
@@ -443,5 +561,14 @@ Rehash discussion?
 %    offered by increased correction are
 %    increased slightly, but for fully pipelined transmission schemes the effect is expected 
 %    to be larger.
+
+-----
+NB -
+One thing to note could be limitations of our simulation - a global probability constant 
+for frame generation assumes that all stations are providing the same level of load to 
+the hub, which may not necessarily be true and could possibly have significant
+repercussions on fairness, ie if most stations are pretty quiet, but one is SUPER active,
+could it drown out the others in the various protocols in a way that is somehow unfair?
+-----
 
 \end{document}
