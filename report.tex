@@ -30,6 +30,15 @@ columns=flexible                        % Column format
 
 \section*{Introduction}
 
+    Describe the protocols
+        T, B, I, and P
+
+    What are we testing?
+
+    What metrics - throughput, delay - definition
+
+    Hypothesis - what do we expect?
+
     %In this report, we analyze the effect of various degrees of error correction on data 
     %throughput versus a transmission scheme utilizing error detection alone. Intuitively,
     %one would expect error correction to be beneficial to throughput for the majority of cases,
@@ -59,6 +68,17 @@ columns=flexible                        % Column format
 
 \section*{Methods}
 
+    Program design
+        - Methods, classes
+
+    Calling the simulator - what do cmdline args mean?
+
+    BASH scripts to automate simulation
+    Plot with gnuplot
+
+    What simulations run - range of p, for each protocol
+
+    
    % The simulator program \verb|esim| was implemented in C++, and is called with:
    % \begin{lstlisting}
    % esim A K F e R T t1 t2 t3 ... tT
@@ -102,10 +122,12 @@ columns=flexible                        % Column format
 
 \section*{Results}
 
+Describe results
+
 \begin{figure}
     \centering
     \includegraphics[width=8cm]{plots/delay_big.eps}
-    \caption{ }
+    \caption{ FIGURE LEGED HEREEEE }
     \label{fig:delay_big}
 \end{figure}
 
@@ -227,6 +249,8 @@ columns=flexible                        % Column format
 
 \section*{Discussion}
 
+Explain results, contrast with expectations
+
 %    When looking to maximize throughput, the most appropriate value for $K$, where $K$ 
 %    is the number of error correction blocks,
 %    is a function of the bit error rate $e$. For sufficiently low values of $e$, $K=0$ 
@@ -275,6 +299,10 @@ columns=flexible                        % Column format
 %    must be retransmitted.
 
 \section*{Conclusions}
+
+Rehash discussion?
+
+(Under these applcations, use this protocol! Under others, use that!)
 
 %    We have observed that a transmission scheme that splits frames into multiple Hamming's 
 %    Single Bit Correction blocks can increase the scheme's resilience to higher bit rate 
