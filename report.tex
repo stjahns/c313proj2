@@ -192,7 +192,10 @@ partly implements the station's backoff protocol as specified in
 The simulator outputs the parameters (minus the seeds) on the first line. After
 running all trials, it calculates and prints 95\% confidence intervals for the
 overall average throughput in frames delivered per time slot, and delay in slots
-for each frame successfully delivered, on lines 2 and 3 respectively. Confidence
+for each frame successfully delivered, on lines 2 and 3 respectively. Delay was 
+calculated from the time of frame generation to the time of successful delivery in slots,
+in a matter that the minimum delay is 1 if the frame is generated in the same slot that it is
+delivered in. Confidence
 intervals were calculated using appropriate t-statistics for the number of
 trials from a file labelled \verb|tvalues.dat|. Per-station statistics were output
 on the remaining lines, where each line started with \verb|nN|, the id of the station,
@@ -248,9 +251,6 @@ formatted data files that were sent to GNUPLOT for plotting.
 
 
 \section*{Results}
-
-Describe results TODO: tables of undelivered/generated
-
 
 \begin{figure}
     \centering \includegraphics[width=8cm]{plots/delay_big.eps}
@@ -310,6 +310,76 @@ Describe results TODO: tables of undelivered/generated
     the throughput for protocols $I$ and $P$ begins to level off.}
     \label{fig:throughput_diverging}
 \end{figure}
+
+
+For ranges of frame generation probabilities per station per slot ranging
+from 0.0 to 0.04, plots of average delay in slots per frame successfully delivered and
+of throughput in number of frames per timeslot were obtained. 
+
+In Figure~\ref{fig:delay_big}, we see that over larger values of $p$ ranging up to
+0.04, there is a clear separation in delay levels for each protocol. Interval backoff
+produces the largest delays, followed by probabilistic backoff. Truncated binary exponential
+backoff produces the least delays of the Slotted ALOHA MAC protocols. Time division multiplexing,
+however, provides delivery delays at $p=0.04$ that are a tiny fraction of the delays of the 
+ALOHA protocols. Similar results exist for throughput at higher loads ($p$ approaching 0.04) as 
+seen in Figure~\ref{fig:throughput_big}. TBEB provides the highest throughput at high load,
+followed by IB and PB. TDM provides a higher throughput at high load than the ALOHA protocols,
+but by a much smaller margin (~10\% higher than TBEB) than exhibited by the difference in
+delays.
+
+At smaller loads (approx. $p<0.013$), the frame delivery delays for TDM become
+larger than that of the ALOHA protocols (Figure~\ref{fig:delay_small}). The relative delays 
+between the different ALOHA protocols also changes. For $p<0.012$, TBEB has the smallest delay,
+but the delay increases strongly above that value. Interval backoff has the smallest delays
+for 
+$p \in (0.012, 0.016)$, after which the delay for IB jumps up sharply (Figure~\ref{fig:delay_ib}).
+For $p > 0.016$, TDM has less delay than any of the ALOHA protocols, and PB has the smallest 
+delay of the ALOHA protocols for $p \in (0.016, 0.02)$, after which the delay jumps to above
+that of TBEB (Figure~\ref{fig:delay_diverging}). TBEB has the least delay of the ALOHA protocols
+for $p > 0.02$.
+
+All protocols produce very similar throughputs at low load for $p \in (0, 0.016)$
+(see Figures ~\ref{fig:throughput_small} and ~\ref{fig:throughput_ib}), where
+all throughputs appear to increase linearly with frame generation probability. 
+Above $p=0.016$, IB throughput drops fairly quickly by about 20\% and flattens to a throughput
+of about 25\% for all higher loads. Above $p=0.02$, PB throughput drops a little and flattens
+to about 40\% for all higher loads. 
+
+
+For the range of $p$ values that could be tested using \verb|R=50000| (higher
+$p$ values resulted in at least polynomially higher simulation run times as the frame queues
+became heavier loaded), we did not see a point where TBEB throughput levels off. Running
+the simulator under the same conditions as before but with \verb|R=1000| and \verb|p| ranging
+from 0 to 1, TBEB throughput appears to increase steadily until about 78\% at about $p = 0.5$
+TODO: for R=5000, TBEB approaches like 0.9 something, so maybe we can extrapolate that with
+a sufficiently large trial, the throughput will approach 1?
+
+TODO figure
+TODO!!! Running with R=1000 shows TDM delay jumping after t=0.1 to above that of TBEB...
+
+TODO - TDM delay should hypothetically spike when the per-station throughput 
+(which should approach 1/N at sufficiently high load) is lower than the generation probability...
+
+TODO Large load TBEB delay looks to be about half that of all the others... Also error increases
+with higher load -- somehow related to unfairness?
+
+TODO make distinction between Average Throughput used in most plots vs average per-station 
+throughput
+
+TODO - unfairness -> look at ratio of undelivered/total generated frames at very high load
+                     for TBEB -> looks like some stations get to deliver most frames while others
+                     might not get any through on some trials....
+
+                     -> probabalistic unfairness explanation - a couple 'lucky' stations get 
+                     through early, while others keep colliding - lucky stations keep transmitting
+                     , unlucky ones have large (1024) slot backoff, never get to transmit
+
+     -> Plot/Figure -> Maybe just a table of undelivered/genrated ratios for station and trial
+                        -> point out that on some trials, some stations have ~1, others are as 
+                        low as 0.3
+
+
+Describe results TODO: tables of undelivered/generated
 
 %    In Figure~\ref{fig:kthroughput}, a plot was obtained that shows the relationship between 
 %    throughput and bit error rate for different numbers of error correction blocks. $K=0$ 
