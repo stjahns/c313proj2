@@ -107,7 +107,23 @@ because as $p$ increases, frames are more likely to generate, while the
 throughput remains the same. And so, the queue can only get larger thus each
 frame must wait longer before moving to the front of the queue for transmission.
 
-\subsection*{Interval-Based Backoff}
+\subsection*{Interval-Based Backoff} In a similar fashion to the probabilistic
+backoff, as $p$ is increased, we predict that some critical point will be reached
+where the rate of generation will be higher than the rate of transmission, and so the
+queues at each station will grow, increasing the average frame delay. Additionally,
+the throughput will level out as the probability of a collision stabilizes along with
+the rate of successful transmission. Consider an analogy of $N$=20 buckets. At each time
+slot, each station has $p$ chance of adding a 'ball to one bucket'. Therefore, in the
+long run, the frames generated per slot is $N\times p$ while the rate of transmission
+can be 1 at best, but realistically much lower (let's say $Z$). It is easy to see that
+as $p$ increases, eventually the rate of generation will be greater than the rate of
+transmission (or throughput), i.e. $N\times p \geq Z$. $Z$ can be said to be equal to
+the probability that a bucket has exactly one ball. This isn't the same probability as
+above, and it won't be calculated as it would involve higher level probabilistic math.
+At this point however, the throughput will will level out and the average frame delay will increase
+as $p$ increases.
+
+\subsection*{Truncated Binary Exponential Backoff}
 
 
     %In this report, we analyze the effect of various degrees of error correction on data 
