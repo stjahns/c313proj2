@@ -472,15 +472,85 @@ in queue at end of trial).
 
 
 \section*{Discussion}
-Our discussion of the simulation results will cover 3 metrics: delay, throughput, and fairness.
+Our comparison of the protocols will be based on 3 metrics: delay, throughput, and fairness.
 
-\subsection*{Delay} Initially we kept $p$ within the realm of the assignment specifications,
-i.e. $p \leq 0.04$. In Figure 1, notice that the delay for the protocols have deviated
-significantly. In terms of this metric we can say that under the $T$ protocol, the average
-amount of time a frame had to wait before being transmitted was the least. For the backoff
-strategies we see protocols performed from better to worst in order $B$, $P$, $I$. At $p$=0.04
-frame generation rate the Interval Based protocol performed the worst, with the average frame
-waiting around 17,000 time slots before transmitting.
+\subsection*{Delay} To effectively compare the protocols on the delay metric, we have generated
+graphs for different ranges of $p$. We will compare the protocols at these ranges.
+
+\emph{range: 0,0.015} Figure 3
+
+$T$ performs the worst until $p$=0.013, where both $P$ and $B$ intersect with it and start performing worse.
+
+This occurs because the few frames that are generated on the $T$ protocol have to wait to transmit on a valid slot,
+while perfectly valid slots are available but not used. On average we would expect a frame to have to wait $N/2 = 20/2 = 10$
+slots before transmitting, when the queued frames at each station are small or nonexistent. At $p$=0.013, protocols $P$
+and $B$ intersect with $I$, because their average frame delay exceeds a value of 10. This is a result of collisions
+that are inevitable for these protocols. As a result of the collisions, the time delay has risen polynomially. In contrast,
+the $T$ protocol does not experience collisions, and so the time delay is growing linearly.
+
+$P$ performs second worst until $p$=0.013, where $B$ starts performing the worst
+
+This means that at this point, there are more collisions occuring under the $B$ protocol and increasing the
+observed time delay. This occurs because the backoff interval for $B$, i.e. 2^{collisions} is smaller than under $P$, i.e. N slots when collisions do not
+occur too often (because frame generation is low).
+
+$I$ and $B$ perform similarly until $p$=0.012, where $B$ deviates off; at this point $I$ becomes the 
+best performer.
+
+Same reason as above, more collisions are occuring under $B$ than under $I$, bumping up the time delay. Again because
+the backoff interval depends on collisions and few collisions have occured, such that $2^{collisions} < N$.
+
+\emph{range: 0.01,0.021} Figure 7
+
+$T$ performs the best after $p$=0.016, when $I$ deviates significantly
+
+Since no collisions occur under $T$, the delay continues to rise linearly and is outperforming all the other
+protocols. $I$ has deviated significantly because at around $p$=0.016 it reached a critical point predicted at
+in our Introduction. As $p$ increases, eventually the rate of frame generation will be greater than the rate of
+transmission (or throughput), i.e. $N\times p \geq$ the rate of transmission. At this point we see in 
+Figure 2 that the throughput has reached a maximum of around 0.3 and begun to decrease. In turn the average frame
+delay should increase as $p$ grows larger.
+
+$I$ intersects with $B$ shortly after $p$=0.016 and becomes the worst performer
+
+There are more collisions occuring under $I$ at this point than under $B$, because $B$ now has 'evolved' a larger
+backoff interval. So while frames continue to be transmitted successfully under $B$, the frames are often
+colliding under $I$ and therefore waiting longer in the station queue. Under $I$ we see that the throughput starts to decrease
+as more slots are wasted because nothing is successfully transmitted over them.
+
+$P$ intersects with $B$ at $p$=0.02 and becomes the second worst performer
+
+This observation occurs for the same reason as that seen for $I$ and $B$ above. Only $P$ appears to be performing better than
+$I$. This is because the frames under $P$ attempt to transmit on each subsequent slot. Therefore, statistically speaking, a frame's
+chance of transmitting increases each time by a factor of $1/N$ such that by the $N^{th}$ attempt it has likely tried to
+retransmit at least once. In contrast, under $I$ it will \emph{at most} try to transmit $N$ times in a cycle. And at worst, it might only
+attempt to retransmit once in a cycle. So naturally it would make sense that $P$ is performing better than $I$.
+
+\emph{range: 0,0.04} Figure 1
+$T$ performs the best as $p$ approaches 0.04
+$B$ performs second best
+$P$ performs third best
+$I$ performs worst
+i.e. these are trends that manifested and continue from figure 7; no discussion necessary.
+
+\emph{range: 0,1} Figure 9
+$T$ performs best until $p$=0.1 where it intersects with $B$ and performs second best after the fact
+$B$ performs best from $p$ \geq 0.1
+
+Notice in Figure 9 that at $p$=0.05, the delay for $T$ increases significantly. This is because
+$p$ = 0.05 is equal to $1/N = 1/20 = 0.05$. At this point the chance of frame generation is equal to the
+rate of transmission and the queues at each station are growing. Notice on Figure 10 that by
+$p$ = 0.1 the throughput for $T$ has maximized at 1, i.e. a frame is transmitted by one station at every slot.
+
+$T$ and $B$ appear to intersect at a frame delay around 1000. This is because the delay for $B$ levels out around $2^{10} = 1024$.
+It seems then that a backoff interval of 1024 slots is sufficient for $N$=20 stations. It is worth noting the
+range of the confidence interval. This is seen because some frames see an empty slot and transmit immediately while
+other frames might wait a very long time before transmitting, even though slots are available.
+
+$P$ continues to perform 3rd best until about $p$=0.9, where its performance converges with that of $I$
+$I$ performed the worst for the vast majority of this range
+
+Protocol $P$'s better performance than $I$ was explained earlier. 
 
 \subsection*{Throughput}
 
