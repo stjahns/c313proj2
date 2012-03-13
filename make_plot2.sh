@@ -21,14 +21,14 @@ seeds='1 2 3 4 5'
 color=1
 
 # For each protocol...
-for protocol in T P I B
+for protocol in T P B
 do
 
 
     echo "Running for protocol ${protocol}..."
 
     #For a range of loads (gen_prob) between 0 and 1
-    for gen_prob in $(seq 0 0.005 0.04)
+    for gen_prob in $(seq 0.01 0.001 0.022)
     do
 
         echo "  for gen_prob = ${gen_prob}..."
