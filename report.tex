@@ -552,7 +552,7 @@ $I$ performed the worst for the vast majority of this range
 
 Protocol $P$'s better performance than $I$ was explained earlier. 
 
-\subsection*{Throughput}
+\subsection*{Throughput} Most of the throughput observations have already been explained, but some are repeated here.
 
 \emph{range: 0,0.015} Figure 4
 
@@ -561,13 +561,23 @@ for all protocols at low $p$ values.
 
 \emph{range: 0.01,0.021} Figure 8
 
+$I$ deviates and performs the worst at $p$=0.016 for reasons explained before
+$P$ diverges and performs the second worst at $p$=0.019 for reasons explained before
+$T$ performs the best
 
+$T$ has the highest throughput because no collisions are occuring under this protocol, unlike for the others.
+The deviations occur for $I$ and $P$ because many collisions are occuring and it is taking more slots for frames
+to successfully transmit.
 
 \emph{range: 0,0.04} Figure 2
 
-$I$ performs the worst after $p$=
+$I$ and $P$ throughputs have levelled out at 0.25 and 0.37 respectively. We actually predicted this to occur in our
+preliminary analysis. We also explained why this occurs there.
 
 \emph{range: 0,1} Figure 10
+
+For very high $p$ the throughput performance from worst to best follows in order $I$, $P$, $B$, $T$ at values around
+0.25, 0.37, 0.9, and 1.0 respectively. These are the theoretical maximum throughputs for the protocols.
 
 \subsection*{Fairness} 
 
