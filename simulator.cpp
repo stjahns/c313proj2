@@ -244,8 +244,12 @@ void Simulator::print_station_stats(int id)
     double mean_throughput = (double)total_frames_delivered 
                       / (double)(num_slots * num_trials); // average throughput
 
-    double mean_delay = ((double)total_delay
+    double mean_delay;
+    if (total_frames_delivered > 0)
+    	mean_delay = ((double)total_delay
                  / (double)total_frames_delivered)/all_stations.size(); // average delay per frame delivered
+    else
+    	mean_throughput = 0;
 
     // calculate MSE for throughput and delay
     double mse_throughput = 0;
@@ -262,8 +266,12 @@ void Simulator::print_station_stats(int id)
                         * (trial_throughput - mean_throughput);
 
         //TODO confirm this trial_delay value is correct after dividing by all_stations.size()
-        double trial_delay = ((double) s->current_stats.total_delay
-                           / (double) s->current_stats.delivered_frames)/all_stations.size();
+        double trial_delay;
+        if (s->current_stats.delivered_frames > 0)
+			trial_delay = ((double) s->current_stats.total_delay
+							   / (double) s->current_stats.delivered_frames)/all_stations.size();
+        else
+        	trial_delay = 0;
 
         mse_delay += (trial_delay - mean_delay) 
                    * (trial_delay - mean_delay);
