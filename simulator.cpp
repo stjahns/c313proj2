@@ -126,7 +126,7 @@ void Simulator::run_trial(unsigned int trial, int seed )
         
             // probabilistically generate a frame to tx 
             station->generate_frame();
-                  
+
             station->increment_delays();
 
             // determine if station should transmit or not - POLYMORPHISM YO
@@ -283,7 +283,7 @@ void Simulator::print_station_stats(int id)
     conf_int throughput_ci = calc_ci(mean_throughput, mse_throughput, num_trials);
     conf_int delay_ci = calc_ci(mean_delay, mse_delay, num_trials);
 
-    cout << id + 1 << " " // our stations indexed from 0, specs want from 1
+    cout << "n" << id + 1 << " " // our stations indexed from 0, specs want from 1
          << throughput_ci <<  " "
          << delay_ci;
 

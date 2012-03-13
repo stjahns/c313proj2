@@ -47,6 +47,7 @@ void Station::tx_collide(int slot)
 void Station::increment_delays()
 {
     // increment delays for each queued frame
-	for (unsigned int i = 0; i < current_stats.delay.size(); i++)
+	for (unsigned int i = 0; i < current_stats.delay.size(); i++) {
 	    	current_stats.delay.at(i)++;
+	}
 }
