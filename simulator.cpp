@@ -127,6 +127,8 @@ void Simulator::run_trial(unsigned int trial, int seed )
             // probabilistically generate a frame to tx 
             station->generate_frame();
                   
+            station->increment_delays();
+
             // determine if station should transmit or not - POLYMORPHISM YO
             if (station->can_transmit(slot)) {
                 // add to vector of currently transmitting stations
@@ -220,7 +222,6 @@ void Simulator::print_overall_stats()
 
 /***********************************************************************
  * Print statistics for a single station over all the trials
- * TODO all on one line!
  * - Station number
  * - CI for throughput
  * - CI for delay

@@ -12,9 +12,9 @@ plot_t="" # plot command strings for throughput
 plot_d="" # plot command strings for delay
 
 # sim params
-stations=10
+stations=20
 gen_prob=1
-trial_time=1000
+trial_time=50000
 trials=5
 seeds='1 2 3 4 5'
 
@@ -28,7 +28,7 @@ do
     echo "Running for protocol ${protocol}..."
 
     #For a range of loads (gen_prob) between 0 and 1
-    for gen_prob in $(seq 0 0.1 1)
+    for gen_prob in $(seq 0 0.005 0.04)
     do
 
         echo "  for gen_prob = ${gen_prob}..."
@@ -44,10 +44,12 @@ do
 
     done
 
-    plot_t="${plot_t} \"output/exp_1/results_t_${protocol}\" lc ${color} title \"${P}\" with yerrorbars,
+    plot_t="${plot_t} \"output/exp_1/results_t_${protocol}\" \
+                        lc ${color} title \"${protocol}\" with yerrorbars,
                     \"output/exp_1/results_t_${protocol}\" lc ${color} notitle with lines," 
 
-    plot_d="${plot_d} \"output/exp_1/results_d_${protocol}\" lc ${color} title \"${P}\" with yerrorbars,
+    plot_d="${plot_d} \"output/exp_1/results_d_${protocol}\" \
+                        lc ${color} title \"${protocol}\" with yerrorbars,
                     \"output/exp_1/results_d_${protocol}\" lc ${color} notitle with lines," 
 
     color=$((color + 1))
@@ -60,6 +62,7 @@ plot_d="${plot_d%,}" # remove trailing comma
 
 # plot throughput stats
 gnuplot <<EOF
+    set key
     set term postscript eps color blacktext "Helvetica" 12
     set output 'plot1_throughput.eps'
     set datafile separator " "
@@ -72,6 +75,7 @@ EOF
 
 # plot delay stats
 gnuplot <<EOF
+    set key
     set term postscript eps color blacktext "Helvetica" 12
     set output 'plot1_delay.eps'
     set datafile separator " "
